@@ -30,16 +30,7 @@ export const homeSlice = createSlice({
                 state.isLoading = true
             })
             .addCase(getHomeAsync.fulfilled, (state, action)=>{
-                // state.isLoading = false
-                // const {allProduct,hotProduct,newProduct,categories} = action.payload.data;
-
-                // state.allProduct = allProduct
-                // state.hotProduct = hotProduct
-                // state.newProduct = newProduct
-                // state.categories = categories
-
                 state = {...action.payload.data,isLoading:false}
-
                 return state
             })
             .addCase(getHomeAsync.rejected, (state, action)=>{

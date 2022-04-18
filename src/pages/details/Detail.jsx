@@ -17,6 +17,7 @@ function CategoryPage() {
   return (
     <div>
       {console.log(categoryPageState.products)}
+      hello
     </div>
   )
 }

@@ -6,6 +6,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Bounce, Fade, Rotate, Reveal } from 'react-awesome-reveal';
 import { useDispatch, useSelector } from "react-redux";
 import { selectCategory, getCategoriesAsync } from "../../features/category/categorySlice";
+import Loading from '../Loading/Loading';
+
 function Category() {
 
     const dispatch = useDispatch()
@@ -17,7 +19,11 @@ function Category() {
 
     const data = categoryState.categories
 
-    if (categoryState.isLoading) return <h1>Loading</h1>
+    if (categoryState.isLoading) return (
+        <div className={styles.loading}>
+            <Loading></Loading>
+        </div>    
+    )
   return (
     <div className={styles.container}>
         <div className={styles.title}>
@@ -26,7 +32,6 @@ function Category() {
             </div>
             <span>Category</span>
         </div>
-        {console.log('re-render')}
         <ul className={styles.list}>
             <Reveal
                 cascade= {true}

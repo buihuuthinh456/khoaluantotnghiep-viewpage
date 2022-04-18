@@ -23,7 +23,7 @@ function Navbar() {
         />
         <Button
           color = 'white'
-          bgColor = '#FB2E86'
+          bgColor = '#1E90FF'
           width = '50px'
           margin = '0 4px'
         >
@@ -31,10 +31,6 @@ function Navbar() {
         </Button>
       </div>
       <div className={styles.right}>
-          <div className={styles.login}>
-            <AccountCircleRoundedIcon style={{fontSize: '2.4rem'}}/>
-            <span>Đăng Nhập</span>
-          </div>
           <div className={styles.cart}>
             <ShoppingCartRoundedIcon style={{fontSize: '2.4rem'}}/>
             <span>Giỏ Hàng</span>
