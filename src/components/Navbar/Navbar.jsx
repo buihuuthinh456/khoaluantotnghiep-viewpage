@@ -2,10 +2,11 @@ import React from 'react'
 import styles from './navbar.module.scss'
 import SearchInput from '../SearchInput/SearchInput'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import Button from '../Button/Button'
 import { Link } from 'react-router-dom'
+import NavbarMobileMenu from '../NavbarMobileMenu/NavbarMobileMenu';
+
 
 function Navbar() {
   return (
@@ -15,6 +16,9 @@ function Navbar() {
           TSHOP
         </Link>
       </div>
+      <div className={styles.navbarMobileMenu}>
+          <NavbarMobileMenu />
+        </div>
       <div className={styles.center}>
         <SearchInput 
           width = {'100%'}

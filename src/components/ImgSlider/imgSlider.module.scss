@@ -3,6 +3,14 @@
 .container {
     padding: 0 100px;
     width: 100%;
+
+    @include tablet() {
+        padding: 0 50px;
+    }
+
+    @include mobile() {
+        display: none;
+    }
 }
 
 .sliderContainer {

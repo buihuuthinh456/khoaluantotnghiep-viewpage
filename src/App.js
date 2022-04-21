@@ -2,102 +2,91 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "./components/Navbar/Navbar";
 import Routers from "./routers";
+import styles from "./app.module.scss";
 import { BrowserRouter } from "react-router-dom";
 import UserController from "./components/UserController/UserController";
 import Footer from "./components/Footer/Footer";
 import Category from "./components/Category/Category";
 import ImgSlider from "./components/ImgSlider/ImgSlider";
 import { Fade } from "react-awesome-reveal";
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import Modal from "./components/Modal/Modal";
+import Login from "./components/Login/Login";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Register from "./components/Register/Register";
+import SearchInput from "./components/SearchInput/SearchInput";
+import Button from "./components/Button/Button";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 function App() {
+  const [gotoTop, setGotoTop] = useState(false);
 
-  const handleScrolltoTop = () => {
-    window.scrollTo(0,0)
-  }
-
-  const [gotoTop, setGotoTop] = useState(false)
-
-  useEffect(()=>{
+  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= 200) {
-        setGotoTop(true)
+        setGotoTop(true);
       } else {
-        setGotoTop(false)
+        setGotoTop(false);
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  })
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
   return (
-    <div className="App">
+    <div className={styles.app}>
       <BrowserRouter>
-        <UserController />
-        <Navbar />
-        <SLiderContainer>
+        <div className={styles.userController}>
+          <UserController />
+        </div>
+        <div className={styles.navbar}>
+          <Navbar />
+        </div>
+        <div className={styles.searchMobile}>
+          <SearchInput width={"100%"} height={"40px"} placeholder="Search..." />
+          <Button color="white" bgColor="#1E90FF" width="50px" margin="0 4px">
+            <SearchOutlinedIcon />
+          </Button>
+        </div>
+        <div className={styles.sliderContainer}>
           <ImgSlider />
-        </SLiderContainer>
-        <Container>
-          <CategoryWrapper>
+        </div>
+
+        <div className={styles.container}>
+          <div className={styles.categoryWrapper}>
             <Category />
-          </CategoryWrapper>
-          <RouterWrapper>
+          </div>
+          <div className={styles.routerWrapper}>
             <Routers />
-          </RouterWrapper>
-        </Container>
-        <Fade delay={500} direction="left" triggerOnce={true}>
+          </div>
+        </div>
+        <Fade direction="left" triggerOnce={true}>
           <Footer />
         </Fade>
       </BrowserRouter>
-      {gotoTop && 
-        <GotoTop onClick={handleScrolltoTop}>
-          <Arrow></Arrow>
-        </GotoTop>
-      }
-      
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+
+      {gotoTop && (
+        <div className={styles.gotoTop} onClick={() => window.scrollTo(0, 0)}>
+          <ArrowUpwardIcon sx={{fontSize: '3rem'}}></ArrowUpwardIcon>
+        </div>
+      )}
     </div>
   );
 }
 
 export default App;
 
-const Container = styled.div`
-  margin-top: 60px;
-  padding: 0 100px;
-  display: flex;
-  align-items: flex-start;
-`;
-
-const SLiderContainer = styled.div`
-  margin-top: 150px;
-`;
-
-const CategoryWrapper = styled.div`
-  flex: 1;
-  margin-right: 50px;
-`;
-
-const RouterWrapper = styled.div`
-  flex: 5;
-`;
-
-const GotoTop = styled.div`
-  cursor: pointer;
-  position: fixed;
-  bottom:24px;
-  right:24px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #1E90FF;
-  display: flex;
-  align-items:center;
-  justify-content:center;
-`
-
-const Arrow = styled(ArrowUpwardIcon)`
-  font-size: 2rem;
-`

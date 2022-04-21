@@ -32,7 +32,7 @@ function Home() {
           {homeState.allProduct &&
             homeState.allProduct.map((item) => (
               <li key={item._id} className={styles.productItem}>
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to={`/detail/${item._id}`} style={{ textDecoration: "none" }}>
                   <div className={styles.imageWrapper}>
                     <img
                       key={item.images[0].public_id}

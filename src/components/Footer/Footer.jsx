@@ -24,7 +24,7 @@ function Footer() {
                     />
                     <Button
                         color = 'white'
-                        bgColor = '#FB2E86'
+                        bgColor = '#1E90FF'
                         width = '120px'
                         margin = '0 4px'
                     >
@@ -144,13 +144,13 @@ function Footer() {
 
             <div className={styles.socialMedia}>
                 <Link to='' className={styles.icon}>
-                    <FacebookIcon style={{fontSize: '2rem'}}/>
+                    <FacebookIcon />
                 </Link>
                 <Link to='' className={styles.icon}>
-                    <InstagramIcon style={{fontSize: '2rem'}}/>
+                    <InstagramIcon />
                 </Link>
                 <Link to='' className={styles.icon}>
-                    <TwitterIcon style={{fontSize: '2rem'}}/>
+                    <TwitterIcon />
                 </Link>
             </div>
         </div>

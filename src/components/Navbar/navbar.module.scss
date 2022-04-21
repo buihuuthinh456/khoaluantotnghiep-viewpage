@@ -1,20 +1,35 @@
 @use '../../scss/' as *;
 .navbar {
     position: fixed;
-    top: 40px;
+    top: $userController-height;
     left: 0;
     right: 0;
-    height: 70px;
+    height: $navbar-height;
     display: flex;
     align-items: center;
     padding: 0 100px;
     background-color: white;
-    z-index: 100;
+    z-index: 50;
+    border-bottom: 1px solid #A0A0A0;
+
+    @include tablet() {
+        padding: 0 16px;
+    }
+}
+
+.navbarMobileMenu {
+    display: none;
+    margin-right: 50px;
+
+    @include tablet() {
+        display: block;
+    }
 }
 
 .left {
     flex: 1;
     margin-right: 100px;
+
     .logo {
         cursor: pointer;
         font-size: 3.4rem;
@@ -25,30 +40,37 @@
         font-family: 'Josefin Sans', sans-serif;
         text-decoration: none;
     }
+
+    @include tablet() {
+        display: none;
+        flex: 0;
+    }
 }
 
 .center {
     flex: 3;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-right: 200px;
+
+    @include tablet() {
+        flex: 7;
+        margin-right: 0;
+    }
+
+    @include mobile() {
+        display: none;
+    }
 }
 
 .right {
     display: flex;
     align-items: center;
 
-    .login {
-        cursor: pointer;
-        @include flex(center,center);
-        flex-direction: column;
-        span {
-            font-size: 1.6rem;
-            font-weight: 400;
-            color: $text-color;
-            line-height: 19px;
-        }
-        margin: 0 8px;
+    @include tablet() {
+        flex: 1;
+        justify-content: flex-end;
     }
 
     .cart {
@@ -60,6 +82,10 @@
             font-weight: 400;
             color: $text-color;
             line-height: 19px;
+
+            @include mobile() {
+                display: none;
+            }
         }
         margin: 0 8px;
     }
