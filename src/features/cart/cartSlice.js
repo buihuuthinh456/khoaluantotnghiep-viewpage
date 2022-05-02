@@ -79,42 +79,16 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    // addToCart: (state, action) => {
-    //   const checkItem = state.cartItem.find(
-    //     (item) => item._id === action.payload._id 
-    //   );
-    //   if (checkItem) {
-    //     toast.warning("Bạn đã đặt hàng rồi", {
-    //       position: toast.POSITION.TOP_RIGHT,
-    //       style: { fontSize: "1.6rem" },
-    //     });
-    //   } else {
-    //     toast.success("Bạn đặt hàng thành công", {
-    //         position: toast.POSITION.TOP_RIGHT,
-    //         style: { fontSize: "1.6rem" },
-    //       });
-    //     state.cartItem.push(action.payload)
-    //     state.cartTotalItem +=1
-    //   }
-    // },
 
-    // deleteProduct: (state, action) => {
-    //   const deleteIndex = state.cartItem.findIndex(
-    //     (item) => item._id === action.payload._id 
-    //   );
-    //   state.cartItem.splice(deleteIndex,1)
-    //   state.cartTotalItem -=1
-    // },
+    increaseQuantity: (state, action) => {
+      const index = state.cartItem.findIndex(item=>item._id === action.payload._id)
+      state.cartItem[index].quantity +=1
+    },
 
-    // increaseQuantity: (state, action) => {
-    //   const index = state.cartItem.findIndex(item=>item._id === action.payload._id)
-    //   state.cartItem[index].quantity +=1
-    // },
-
-    // decreaseQuantity: (state, action) => {
-    //   const index = state.cartItem.findIndex(item=>item._id === action.payload._id)
-    //   state.cartItem[index].quantity -=1
-    // }
+    decreaseQuantity: (state, action) => {
+      const index = state.cartItem.findIndex(item=>item._id === action.payload._id)
+      state.cartItem[index].quantity -=1
+    }
   },
 
   extraReducers: (builder) => {
@@ -123,6 +97,7 @@ export const cartSlice = createSlice({
     }).addCase(getCartAsync.fulfilled, (state,action)=>{
       state.isLoading = false
       state.cartItem = action.payload.cart
+      state.cartTotalItem = action.payload.cart.length
     })
 
     builder.addCase(addItemCartAsync.fulfilled, (state,action)=>{
@@ -140,7 +115,7 @@ export const cartSlice = createSlice({
   }
 });
 
-
+export const {increaseQuantity, decreaseQuantity} = cartSlice.actions
 
 export const selectCart = (state) => state.cart;
 

@@ -3,6 +3,27 @@
 .container {
 
 }
+
+.loading {
+    @include flex(center,center)
+}
+
+.back {
+
+    margin-top: 36px;
+
+    a {
+        font-size: 1.6rem;
+        color: $text-color;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            color: $hover-color;
+        }
+    }
+}
+
 .title {
     padding: 16px;
     padding-left: 0;

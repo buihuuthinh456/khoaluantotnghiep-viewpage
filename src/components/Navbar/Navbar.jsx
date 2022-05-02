@@ -8,10 +8,9 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import NavbarMobileMenu from "../NavbarMobileMenu/NavbarMobileMenu";
 import Badge from "@mui/material/Badge";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLogin, deleteProduct } from "../../features/login/loginSlice";
 import { selectSearch, getParam } from "../../features/search/searchSlice";
-import { selectCart, deleteItemCartAsync } from "../../features/cart/cartSlice";
-import { getCart } from "../../features/login/loginSlice"
+import { selectLogin } from "../../features/login/loginSlice";
+import { selectCart, deleteItemCartAsync, getCartAsync } from "../../features/cart/cartSlice";
 
 function Navbar() {
   const navigate = useNavigate()
@@ -25,7 +24,7 @@ function Navbar() {
   const [searchInput, setSearchInput] = useState()
 
   useEffect(()=>{
-    dispatch(getCart)
+    dispatch(getCartAsync())
   }, [])
 
   useEffect(() => {

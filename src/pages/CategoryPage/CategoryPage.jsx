@@ -54,7 +54,6 @@ function CategoryPage() {
         page: searchParam.get("page"),
       })
     );
-    // setRenderProduct(paginationState.data);
   }, [searchParam.get("page")]);
 
   useEffect(()=>{

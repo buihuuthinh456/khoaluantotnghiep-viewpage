@@ -8,16 +8,16 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectLogin,
   deleteProduct,
-  increaseQuantity,
-  decreaseQuantity,
 } from "../../features/login/loginSlice";
-import { selectCart, deleteItemCartAsync, getCartAsync } from "../../features/cart/cartSlice";
+import { selectCart, deleteItemCartAsync, getCartAsync, increaseQuantity, decreaseQuantity } from "../../features/cart/cartSlice";
+import { Link, useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading/Loading";
 
 function Cart() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(0);
   const [cartItem, setCartItem] = useState([]);
-  // const userCart = useSelector(selectLogin);
   const userCart = useSelector(selectCart);
 
   useEffect(() => {
@@ -28,15 +28,30 @@ function Cart() {
     dispatch(getCartAsync())
   }, [])
 
+  console.log(userCart.cartItem);
+
   useEffect(() => {
     setAmount(userCart.cartTotalItem);
     setCartItem(userCart.cartItem);
   }, [userCart.cartTotalItem, userCart.cartItem]);
 
+  if (userCart.isLoading)
+    return (
+      <div className={styles.loading}>
+        <Loading size={100} />
+      </div>
+    );
+
   if (amount === 0)
     return (
       <div className={styles.container}>
         <h1>Không có sản phẩm</h1>
+
+        <div className={styles.back}>
+          <Link to='/'>
+            Về trang chủ
+          </Link>
+        </div>
       </div>
     );
 
@@ -99,7 +114,7 @@ function Cart() {
 
       <div className={styles.buy}>
         <div className={styles.continue}>
-          <Button variant="outlined" size="large">
+          <Button variant="outlined" size="large" onClick={()=>navigate('/')}>
             Continue
           </Button>
         </div>
