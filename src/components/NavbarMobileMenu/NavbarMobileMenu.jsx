@@ -29,7 +29,7 @@ function NavbarMobileMenu() {
   return (
     <div className={styles.container}>
       <div className={styles.menuIcon} onClick={() => setOpenMenu(true)}>
-        <MenuIcon style={{ fontSize: "2.4rem" }} />
+        <MenuIcon />
       </div>
 
       <div className={`${styles.burgerNav} ${openMenu ? styles.active : ""}`}>

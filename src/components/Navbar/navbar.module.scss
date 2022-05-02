@@ -21,6 +21,10 @@
     display: none;
     margin-right: 50px;
 
+    & :global(.MuiSvgIcon-root ) {
+        font-size: 3.2rem;
+    }
+
     @include tablet() {
         display: block;
     }
@@ -54,6 +58,13 @@
     justify-content: space-between;
     margin-right: 200px;
 
+    & {
+        >button {
+            padding: 12px;
+            margin-left: 8px;
+        }
+    }
+
     @include tablet() {
         flex: 7;
         margin-right: 0;
@@ -74,19 +85,188 @@
     }
 
     .cart {
-        cursor: pointer;
         @include flex(center, center);
         flex-direction: column;
-        span {
-            font-size: 1.6rem;
-            font-weight: 400;
-            color: $text-color;
-            line-height: 19px;
+        margin: 0 8px;
+        position: relative;
 
-            @include mobile() {
-                display: none;
+        &:hover {
+            >.cartInfo {
+                display: block;
             }
         }
-        margin: 0 8px;
+
+        & :global(.MuiSvgIcon-root ) {
+            font-size: 2.4rem;
+            cursor: pointer;
+        }
+
+        & {
+            :global(.BaseBadge-root) {
+                span {
+                    font-size: 1.6rem;
+                }
+            }
+        }
+        
+        .cartInfo {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: white;
+            z-index: 10;
+            width: 400px;
+            box-shadow: 0 0px 3.125rem 0 rgb(0 0 0 / 40%);
+            border-radius: 2px;
+            display: none;
+            @include mobile() {
+                position: fixed;
+                top: calc($userController-height + $navbar-height);
+                left: 0;
+                right: 0;
+                padding-right: 20px;
+            }
+
+            &::before {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 20px;            
+                position: absolute;
+                bottom: calc(100%);
+
+                @include mobile() {
+                    height: 4px;
+                }
+            }
+
+            .noCart {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100px;
+                width: 100%;
+            }
+        }
+
+        .cartTitle {
+            padding: 12px 8px;
+            display: flex;
+            align-items: center;
+
+            h2 {
+                font-size: 1.6rem;
+                font-weight: 700;
+                color: $text-color;
+            }
+        }
+
+        .cartProductMenu {
+            list-style-type: none;
+            margin-top: 16px;
+            max-height: 25vh;
+            overflow-y: scroll;
+        }
+
+        .cartProductItem {
+            display: flex;
+            margin-bottom: 20px;
+            &:hover {
+                background-color: #F8F8F8;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+        }
+
+        .imgWrapper {
+            flex: 1;
+            width: 100%;
+            height: auto;
+            margin: 0 8px 0 8px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                border: 1px solid #A9A9A9;
+                border-radius: 2px;
+            }
+        }
+
+        .cartProductInfo {
+            display: flex;
+            flex-direction: column;
+            flex: 3;
+            padding: 0 16px 0 8px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &:last-child {
+                margin-top: auto;
+                justify-content: flex-end;
+            }
+        }
+
+        .productName {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: $text-color;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .cartWrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .productPrize {
+            font-size: 1.7rem;
+            font-weight: 400;
+            color: $product-money;
+        }
+
+        .multiply {
+            font-size: 1.4rem;
+            color: $text-color;
+            margin: 0 8px;
+        }
+
+        .quantity {
+            font-size: 1.6rem;
+            color: $text-color;
+        }
+
+        .productDelete {
+            font-size: 1.4rem;
+            color: $text-color;
+            font-weight: 500;
+
+            &:hover {
+                color: $primary-color;
+                cursor: pointer;
+            }
+        }
+
+        .cartFooter {
+            height: 40px;
+            display: flex;
+            justify-content: flex-end;
+            margin: 20px 20px 12px 0;
+
+            >button {
+                font-size: 1.15rem;
+            }
+        }
+
     }
 }

@@ -23,7 +23,7 @@ function Button(props) {
         }
     `
   return (
-    <Button {...props} >{props.children}</Button>
+    <Button {...props} onClick={props.onClick}>{props.children}</Button>
   ) 
 }
 

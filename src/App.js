@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import Navbar from "./components/Navbar/Navbar";
 import Routers from "./routers";
 import styles from "./app.module.scss";
@@ -10,16 +9,20 @@ import Category from "./components/Category/Category";
 import ImgSlider from "./components/ImgSlider/ImgSlider";
 import { Fade } from "react-awesome-reveal";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import Modal from "./components/Modal/Modal";
-import Login from "./components/Login/Login";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Register from "./components/Register/Register";
 import SearchInput from "./components/SearchInput/SearchInput";
 import Button from "./components/Button/Button";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { getUserInfoAsync } from './features/login/loginSlice'
+import { useDispatch } from "react-redux";
+
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  const accessToken = localStorage.getItem('accessToken')
   const [gotoTop, setGotoTop] = useState(false);
 
   useEffect(() => {
@@ -36,6 +39,16 @@ function App() {
       window.removeEventListener("scroll", handleScroll);
     };
   });
+
+  useEffect(()=>{
+    dispatch(getUserInfoAsync())
+  }, [accessToken])
+
+  // useEffect(()=>{
+  //   console.log('window', window.location)
+  //   window.scrollTo(0,0)
+  // }, [window.location])
+
   return (
     <div className={styles.app}>
       <BrowserRouter>

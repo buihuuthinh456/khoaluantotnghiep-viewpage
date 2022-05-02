@@ -9,6 +9,7 @@ function SearchInput(props) {
           type= {props.type ? props.type : 'text'}
           placeholder={props.placeholder || ''}
           onClick = {props.onClick}
+          onChange = {props.onChange}
         ></input>
     </SearchContainer>
   )

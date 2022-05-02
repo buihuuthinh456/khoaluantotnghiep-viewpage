@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { handleRegisterUser } from "../../api";
+import CloseIcon from '@mui/icons-material/Close';
 
 function Register() {
 
@@ -18,6 +19,11 @@ function Register() {
     const handleOpenLogin = () => {
       dispatch(closeRegisterModal())
       dispatch(openLoginModal())
+    }
+
+    const handleCloseRegister = (e) => {
+      e.stopPropagation()
+      dispatch(closeRegisterModal())
     }
 
 
@@ -43,6 +49,10 @@ function Register() {
   return (
     <div className={styles.container} onClick={(e) => e.stopPropagation()}>
       <h1 className={styles.header}>Register</h1>
+
+      <div className={styles.close} onClick={(e) => handleCloseRegister(e)}>
+        <CloseIcon />
+      </div>
 
       <Formik
         initialValues={{

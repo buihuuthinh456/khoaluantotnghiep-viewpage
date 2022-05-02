@@ -11,6 +11,7 @@ import {
   openRegisterModal,
 } from "../../features/modal/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
+import CloseIcon from '@mui/icons-material/Close';
 
 function Login() {
   const dispatch = useDispatch();
@@ -23,6 +24,11 @@ function Login() {
       dispatch(closeLoginModal());
     }
   }, [loginUser.isLogin]);
+
+  const handleCloseLogin = (e) => {
+    e.stopPropagation()
+    dispatch(closeLoginModal())
+  }
 
   const handleOpenRegister = () => {
     dispatch(closeLoginModal());
@@ -43,6 +49,10 @@ function Login() {
   return (
     <div className={styles.container} onClick={(e) => e.stopPropagation()}>
       <h1 className={styles.header}>Login</h1>
+
+      <div className={styles.close} onClick={(e) => handleCloseLogin(e)}>
+        <CloseIcon />
+      </div>
 
       <Formik
         initialValues={{

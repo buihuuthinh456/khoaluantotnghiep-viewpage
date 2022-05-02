@@ -1,0 +1,130 @@
+@use "../../scss/" as *;
+
+.container {
+
+}
+
+.loading {
+  @include flex (center, center)
+}
+
+:global(.MuiInput-root) {
+> input {
+    font-size: 1.6rem;
+}
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.title {
+  h1 {
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: $text-color;
+    letter-spacing: 1.1px;
+    text-align: left;
+  }
+}
+
+.userComment {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.imgWrapper {
+  width: 36px;
+  height: 36px;
+  margin-right: 16px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.userInput {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+
+  & :global(.MuiFormControl-root) {
+    > label {
+      font-size: 1.6rem;
+      top: -6px;
+    }
+  }
+
+  & :global(.MuiInput-root) {
+    > input {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.userCommit {
+  margin-left: auto;
+  & :global(.MuiButton-root) {
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 1.4rem;
+  }
+}
+
+.productCommentsList {
+    list-style-type: none;
+    margin-top: 36px;
+    max-height: 60vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: darkgrey;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: #696969;
+  }
+}
+
+.productComment {
+    margin-bottom: 36px;
+    &:first-child {
+      margin-top: 25px;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
+    .commentController {
+        margin: 12px 0 0 52px;
+
+        .like, .reply {
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: $text-color;
+            margin-right: 16px;
+            
+            &:hover {
+                cursor: pointer;
+                color: $primary-color;
+            }
+        }
+    }
+}
+

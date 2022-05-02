@@ -1,15 +1,44 @@
 @use '../../scss/' as *;
 
+.back {
+    margin-bottom: 36px;
+    > a{
+        font-size: 2rem;
+        font-weight: 600;
+        color: $text-color;
+        text-decoration: none;
+        
+        &:hover {
+            color: $hover-color;
+        }
+    }
+}
+
 .container {
     display: flex;
     margin-bottom: 80px;
+
+    @include tablet() {
+        flex-direction: column;
+    }
+}
+
+.loading {
+    width: 100%;
+    height: 100vh;
+    @include flex (center, center)
 }
 
 .imageWrapper {
     flex: 1;
     width: 100%;
-    min-height: 60vh;
+    height: 60vh;
     margin-right: 50px;
+
+    @include tablet() {
+        height: 20vh;
+        margin-bottom: 24px;
+    }
 
     img {
         width: 100%;
@@ -45,14 +74,21 @@
       font-size: 2.4rem;
       color: $text-color;
       margin-bottom: 12px;
+
+      @include tablet() {
+        font-size: 2.6rem;
+    }
     }
   
     span {
       font-size: 1.6rem;
       font-weight: 300;
       color: $text-color;
-      letter-spacing: 1.1;
       text-align: center;
+
+      @include tablet() {
+          font-size: 2.3rem;
+      }
     }
 }
 
@@ -64,36 +100,94 @@
     align-items: center;
     justify-content: space-between;
 
+    @include tablet() {
+        margin-top: 20px;
+    }
+
+    @include mobile() {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .quantity {
         display: flex;
         align-items: center;
 
-        .removeButton {
+        @include mobile() {
+            margin-bottom: 24px;
+        }
+
+        .removeButton{
             button {
                 padding: 10px 12px;
-                font-size: 2rem;
+                & :global(.MuiSvgIcon-root) {
+                    font-size: 2rem;
+                    @include tablet() {
+                        font-size: 3rem;
+                    }
+                }
+
+                @include tablet() {
+                    padding: 14px;
+                    font-size: 3rem;
+                }
             }
         }
 
         .amount {
             font-size: 2rem;
             margin: 0 16px;
+
+            @include tablet() {
+                font-size: 2.6rem;
+                margin: 0 32px;
+            }
         }
 
         .addButton {
             button {
                 padding: 10px 12px;
                 font-size: 2rem;
+                & :global(.MuiSvgIcon-root) {
+                    font-size: 2rem;
+                    @include tablet() {
+                        font-size: 3rem;
+                    }
+                }
+
+                @include tablet() {
+                    padding: 14px;
+                    font-size: 3rem;
+                }
             }
         }
     }
 
     .buttonAdd {
+        @include mobile() {
+            width: 100%;
+        }
         button {
             padding: 8px 12px;
             font-size: 1.4rem;
+
+            @include tablet() {
+                padding: 12px 12px;
+                font-size: 1.8rem;
+            }
+
+            @include mobile() {
+                width: 100%;
+            }
+
         }
     }
+}
+
+// Comments section
+
+.commentSection {
+    margin-top: 50px;
 }
 
 

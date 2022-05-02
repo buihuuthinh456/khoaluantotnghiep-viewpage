@@ -1,63 +1,43 @@
 @use '../../scss/' as *;
 
 .loading {
-    width: 100%;
-    height: 100vh;
-    @include flex (center, center)
+    @include flex(center,center);
 }
 
-.filter {
-    margin-bottom: 24px;
-    // display: flex;
-    // justify-content: flex-end;
-    & :global(.MuiFormControl-root) {
-        >label {
-            font-size: 1.8rem;
-            background-color: white;
-        }
+.back {
+    font-size: 2rem;
+    color: $text-color;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 20px;
 
-        & :global(.MuiSelect-select) {
-            padding: 16px 100px 16px 14px !important;
-            font-size: 1.6rem;
-            line-height: 2.6rem;
-        }
-    } 
-}
-
-:global(.MuiMenuItem-root) {
-    font-size: 1.6rem !important;
-
-    @include tablet() {
-        font-size: 1.8rem !important;
-    }
-
-    @include mobile() {
-        font-size: 1.8rem !important;
+    &:hover {
+        color: $primary-color;
     }
 }
-
-
 
 .container {
+
+}
+
+.noResult {
+    margin: 20px 0;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: $text-color;
+}
+
+.wrapper {
     margin-bottom: 40px;
     border: 1px solid gray;
     border-top: 2px solid $primary-color;
 }
 
-.title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px;
-    border-bottom: 1px solid gray;
-
-    >h3 {
-        color: $text-color;
-        font-size: 2rem;
-        font-weight: bold;
-        line-height: 19px;
-        letter-spacing: 1.4px;
-    }
+.title  {
+    font-size: 1.8rem;
+    margin: 20px 0;
+    font-weight: 500;
+    color: $text-color;
 }
 
 .productList {
@@ -171,23 +151,3 @@
     margin-top: auto;
     margin-bottom: 8px;
 }
-
-.pagination {
-    margin: 24px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    :global(.MuiButtonBase-root) {
-        font-size: 1.4rem;
-
-        & >button {
-            & :global(.MuiSvgIcon-root) {
-                font-size: 1.6rem;
-            }
-        }
-    }
-
-    
-}
-
