@@ -109,4 +109,12 @@ export const pagination = (query) => {
   });
 }
 
+export const viewsProduct = (productID, token) => {
+  return axios({
+    method: "put",
+    url: `${URL}/api/product/${productID}`,
+    headers: { Authorization:token },
+  })
+}
+
 

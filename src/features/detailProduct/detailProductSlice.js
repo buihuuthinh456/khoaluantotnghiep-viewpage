@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { getDetailProduct } from "../../api";
+import { getDetailProduct, viewsProduct } from "../../api";
 
 const initialState = {
   isLoading: false,
@@ -19,6 +19,18 @@ export const fetchDetailProduct = createAsyncThunk(
   }
 );
 
+export const viewsProductAsync = createAsyncThunk('detailProduct/viewsProductAsync', async(id) => {
+  try {
+    if (localStorage.getItem('accessToken')) {
+      const token = localStorage.getItem('accessToken')
+      const response = await viewsProduct(id, token);
+      return response;
+    }
+  } catch (error) {
+    console.log(error.response);
+  }
+})
+
 export const detailProductSlice = createSlice({
   name: "detailProduct",
   initialState,
@@ -33,9 +45,12 @@ export const detailProductSlice = createSlice({
           const data = action.payload.data;
           state.data = { ...data };
         }
-
         state.isLoading = false;
       });
+    
+    builder.addCase(viewsProductAsync.fulfilled, (state,action) => {
+      console.log('viewsProductAsync fulfilled', action.payload);
+    })
   },
 });
 

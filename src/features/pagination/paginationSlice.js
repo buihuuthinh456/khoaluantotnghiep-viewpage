@@ -5,10 +5,11 @@ const initialState = {
   isLoading: false,
   searchParam: null,
   data: null,
+  dataSort: null,
 };
 
 export const paginationAsync = createAsyncThunk(
-  "sort/sortPriceAsync",
+  "pagination/paginationAsync",
   async (payload) => {
     try {
       const response = await pagination(payload);
@@ -19,11 +20,26 @@ export const paginationAsync = createAsyncThunk(
   }
 );
 
+// export const sortAsync = createAsyncThunk("pagination/sortAsync", async(payload) => {
+
+// })
+
 export const paginationSlice = createSlice({
   name: "pagination",
   initialState,
   reducers: {
-
+    sort: (state,action) => {
+      state.isLoading = true
+      const sortParam = action.payload
+      if (sortParam === "price") {
+        state.dataSort = state.data.slice().sort((a, b) => a.price - b.price);
+      } else if (sortParam === "-price") {
+        state.dataSort = state.data.slice().sort((a, b) => b.price - a.price);
+      } else {
+        state.dataSort = state.data
+      }
+      state.isLoading = false
+    }
   },
 
   extraReducers: (builders) => {
@@ -41,6 +57,8 @@ export const paginationSlice = createSlice({
       });
   },
 });
+
+export const {sort} = paginationSlice.actions
 
 export const selectPagination = (state) => state.pagination;
 

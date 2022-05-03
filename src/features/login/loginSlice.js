@@ -63,51 +63,6 @@ export const loginSlice = createSlice({
       localStorage.removeItem("accessToken");
       return (state = initialState);
     },
-
-    addToCart: (state, action) => {
-      const checkItem = state.cart.find(
-        (item) => item._id === action.payload._id
-      );
-      if (checkItem) {
-        toast.warning("Bạn đã đặt hàng rồi", {
-          position: toast.POSITION.TOP_RIGHT,
-          style: { fontSize: "1.6rem" },
-        });
-      } else {
-        toast.success("Bạn đặt hàng thành công", {
-          position: toast.POSITION.TOP_RIGHT,
-          style: { fontSize: "1.6rem" },
-        });
-        state.cart.push(action.payload);
-        state.cartTotalItem += 1;
-      }
-    },
-
-    deleteProduct: (state, action) => {
-      const deleteIndex = state.cart.findIndex(
-        (item) => item._id === action.payload._id
-      );
-      state.cart.splice(deleteIndex, 1);
-      state.cartTotalItem -= 1;
-    },
-
-    increaseQuantity: (state, action) => {
-      const index = state.cart.findIndex(
-        (item) => item._id === action.payload._id
-      );
-      state.cart[index].quantity += 1;
-    },
-
-    decreaseQuantity: (state, action) => {
-      const index = state.cart.findIndex(
-        (item) => item._id === action.payload._id
-      );
-      state.cart[index].quantity -= 1;
-    },
-
-    getCart: (state) => {
-      return state.cartItem
-    }
   },
 
   extraReducers: (builder) => {

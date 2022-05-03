@@ -22,19 +22,28 @@ import Pagination from "@mui/material/Pagination";
 import {
   paginationAsync,
   selectPagination,
+  sort,
 } from "../../features/pagination/paginationSlice";
 
 function CategoryPage() {
   const dispatch = useDispatch();
   const categoryPageState = useSelector(selectCategoryPage);
   const paginationState = useSelector(selectPagination);
-  const sortState = useSelector(selectSort);
-  const [products, setProducts] = useState();
+
   const [searchParam, setSearchParam] = useSearchParams();
   const [filter, setFilter] = useState();
   const [renderProduct, setRenderProduct] = useState([]);
   const [page, setPage] = useState(1);
+  const [query, setQuery] = useState({
+    'sort': null,
+    'page': 1
+  })
   const { category } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setSearchParam(query)
+  }, []);
 
   useEffect(() => {
     dispatch(categoryPageAsync(category));
@@ -44,41 +53,34 @@ function CategoryPage() {
     setRenderProduct(categoryPageState.products);
   }, [categoryPageState.products]);
 
+  // set Page
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    dispatch(
-      paginationAsync({
-        page: searchParam.get("page"),
-      })
-    );
+    if (searchParam.get("page")) {
+      dispatch(
+        paginationAsync({
+          page: searchParam.get("page"),
+        })
+      );
+    }
   }, [searchParam.get("page")]);
 
-  useEffect(()=>{
-    setRenderProduct(paginationState.data);
-  }, [paginationState.data])
-
+  // sort Page
   useEffect(() => {
-    let sortArray = categoryPageState.products;
-    if (filter === "price") {
+    setRenderProduct(paginationState.data);
+  }, [paginationState.data]);
+
+  useEffect(()=>{
+    if (filter) {
       setSearchParam({
-        sort: filter,
-      });
-      sortArray = sortArray.slice().sort((a, b) => a.price - b.price);
-      setRenderProduct(sortArray);
-    } else if (filter === "-price") {
-      setSearchParam({
-        sort: filter,
-      });
-      sortArray = sortArray.slice().sort((a, b) => b.price - a.price);
-      setRenderProduct(sortArray);
-    } else {
-      setSearchParam();
-      setRenderProduct(sortArray);
+        'sort': filter
+      })
+      dispatch(sort(filter))
     }
-  }, [filter]);
+  }, [filter])
+
+  useEffect(()=>{
+    setRenderProduct(paginationState.dataSort);
+  }, [paginationState.dataSort])
 
   const handleChangeFilter = (event) => {
     setFilter(event.target.value);

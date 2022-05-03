@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectDetailProduct,
   fetchDetailProduct,
+  viewsProductAsync,
 } from "../../features/detailProduct/detailProductSlice";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -22,17 +23,25 @@ function CategoryPage() {
   const detailProduct = useSelector(selectDetailProduct).data;
   const isLoading = useSelector(selectDetailProduct).isLoading;
 
+  // When add product
   const handleAddProduct = () => {
     const dataSend = {...detailProduct, quantity: amount};
     dispatch(addItemCartAsync(dataSend))
   };
 
+  // lấy giữ liệu
   useEffect(() => {
     dispatch(fetchDetailProduct(productID));
   }, [productID]);
 
+  // scroll top
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // viewProduct
+  useEffect(() => {
+    dispatch(viewsProductAsync(productID))
   }, []);
 
   if (isLoading)
