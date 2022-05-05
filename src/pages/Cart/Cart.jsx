@@ -9,9 +9,10 @@ import {
   selectLogin,
   deleteProduct,
 } from "../../features/login/loginSlice";
-import { selectCart, deleteItemCartAsync, getCartAsync, increaseQuantity, decreaseQuantity } from "../../features/cart/cartSlice";
+import { selectCart, deleteItemCartAsync, getCartAsync, increaseQuantity, decreaseQuantity, productTotalMoney } from "../../features/cart/cartSlice";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
+import BuyProducts from "../../components/BuyProducts/BuyProducts";
 
 function Cart() {
   const navigate = useNavigate()
@@ -28,12 +29,15 @@ function Cart() {
     dispatch(getCartAsync())
   }, [])
 
-  console.log(userCart.cartItem);
-
   useEffect(() => {
     setAmount(userCart.cartTotalItem);
     setCartItem(userCart.cartItem);
   }, [userCart.cartTotalItem, userCart.cartItem]);
+
+  const handleBuy = async() => {
+    await dispatch(productTotalMoney())
+    navigate('/checkout')
+  }
 
   if (userCart.isLoading)
     return (
@@ -71,7 +75,7 @@ function Cart() {
             <div className={styles.productInfo}>
               <div className={styles.row}>
                 <h3 className={styles.productName}>{item.name}</h3>
-                <h3 className={styles.productPrice}>{`$${item.price}`}</h3>
+                <h3 className={styles.productPrice}>{`$${item.totalMoney}`}</h3>
               </div>
 
               <div className={styles.row}>
@@ -115,16 +119,20 @@ function Cart() {
       <div className={styles.buy}>
         <div className={styles.continue}>
           <Button variant="outlined" size="large" onClick={()=>navigate('/')}>
-            Continue
+            Tiếp Tục Mua
           </Button>
         </div>
 
         <div className={styles.payment}>
-          <Button variant="contained" size="large">
-            Payment
+          <Button variant="contained" size="large" onClick={handleBuy}>
+            Mua hàng
           </Button>
         </div>
       </div>
+
+      {/* <div className={styles.modalBuy}>
+          <BuyProducts />
+      </div> */}
     </div>
   );
 }

@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   cartItem: [],
   cartTotalItem: 0,
+  cartTotalMoney: 0,
 };
 
 export const getCartAsync = createAsyncThunk('cart/getCartAsync', async()=>{
@@ -56,9 +57,8 @@ export const deleteItemCartAsync = createAsyncThunk('cart/deleteItemCartAsync', 
         const response = await toast.promise(
           deleteItemCart(dataPost, token),
           {
-            pending: "delete is handling",
-            success: "delete successfull 👌",
-            error: "delete error 🤯",
+            success: "Đã xóa khỏi giỏ hàng",
+            error: "Xóa thất bại",  
           },
           {
             style: { fontSize: "1.6rem" },
@@ -79,15 +79,22 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-
     increaseQuantity: (state, action) => {
       const index = state.cartItem.findIndex(item=>item._id === action.payload._id)
       state.cartItem[index].quantity +=1
+      state.cartItem[index].totalMoney= state.cartItem[index].price * state.cartItem[index].quantity
     },
 
     decreaseQuantity: (state, action) => {
       const index = state.cartItem.findIndex(item=>item._id === action.payload._id)
       state.cartItem[index].quantity -=1
+      state.cartItem[index].totalMoney= state.cartItem[index].price * state.cartItem[index].quantity
+    },
+
+    productTotalMoney: (state) => {
+      state.cartTotalMoney = state.cartItem.reduce((acc, cur)=>{
+        return acc + cur.totalMoney
+      }, 0)
     }
   },
 
@@ -115,7 +122,7 @@ export const cartSlice = createSlice({
   }
 });
 
-export const {increaseQuantity, decreaseQuantity} = cartSlice.actions
+export const {increaseQuantity, decreaseQuantity, productTotalMoney} = cartSlice.actions
 
 export const selectCart = (state) => state.cart;
 

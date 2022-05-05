@@ -11,8 +11,7 @@ import searchReducer from '../features/search/searchSlice'
 import sortReducer from '../features/sort/sortSlice'
 import commentsReducer from '../features/comments/commentsSlice'
 import paginationReducer from '../features/pagination/paginationSlice'
-
-
+import paymentReducer from '../features/payment/paymentSlice'
 
  
 export const store = configureStore({
@@ -29,5 +28,6 @@ export const store = configureStore({
     sort: sortReducer,
     comments: commentsReducer,
     pagination: paginationReducer,
+    payment: paymentReducer,
   },
 });

@@ -117,4 +117,14 @@ export const viewsProduct = (productID, token) => {
   })
 }
 
+// payment 
+export const payment = (type, token, payload) => {
+  return axios({
+    method: 'post',
+    url: `${URL}/api/payment/${type}`,
+    headers: { Authorization:token },
+    data: payload
+  })
+}
+
 

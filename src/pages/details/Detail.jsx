@@ -25,7 +25,9 @@ function CategoryPage() {
 
   // When add product
   const handleAddProduct = () => {
-    const dataSend = {...detailProduct, quantity: amount};
+    const totalMoney = detailProduct.price * amount
+    console.log('detail', totalMoney);
+    const dataSend = {...detailProduct, quantity: amount, totalMoney: totalMoney};
     dispatch(addItemCartAsync(dataSend))
   };
 

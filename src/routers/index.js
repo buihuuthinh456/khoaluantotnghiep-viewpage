@@ -9,6 +9,7 @@ import Details from '../pages/Details/Detail'
 import CategoryPage from '../pages/CategoryPage/CategoryPage';
 import Cart from '../pages/Cart/Cart';
 import Search from '../pages/Search/Search';
+import Checkout from '../pages/Checkout/Checkout';
 
 function index() {
   return (
@@ -18,6 +19,7 @@ function index() {
         <Route path='/detail/:productID' element={<Details />}></Route>
         <Route path='/cart' element={<Cart />}></Route>
         <Route path='/search' element={<Search />}></Route>
+        <Route path='/checkout' element={<Checkout />}></Route>
     </Routes>
   )
 }
