@@ -8,7 +8,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import NavbarMobileMenu from "../NavbarMobileMenu/NavbarMobileMenu";
 import Badge from "@mui/material/Badge";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSearch, getParam } from "../../features/search/searchSlice";
+import { selectSearch, getParam, searchProductsWithNameAsync } from "../../features/search/searchSlice";
 import { selectLogin } from "../../features/login/loginSlice";
 import { selectCart, deleteItemCartAsync, getCartAsync } from "../../features/cart/cartSlice";
 
@@ -38,9 +38,12 @@ function Navbar() {
   }
 
   const handleSearch = (e) => {
-    dispatch(getParam({
+    // dispatch(getParam({
+    //   'name[regex]' : searchInput
+    // }))
+    dispatch(searchProductsWithNameAsync({
       'name[regex]' : searchInput
-    }))
+    }));
     navigate('/search')
   }
 

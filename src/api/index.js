@@ -42,9 +42,22 @@ export const fetchSpecificProduct = (category) =>
 
 export const searchProductsWithName = (query) => {
   const searchParam = new URLSearchParams(query).toString()
+
+  let queryString='';
+  for(let key in query ) {
+    console.log(key);
+    queryString = queryString + '&' + key + '=' + query[key]
+  }
+
+  console.log(queryString);
+  queryString = queryString.slice(1)
+  console.log('after',queryString);
+  console.log('search api',`${URL}/api/product?${queryString}`)
+  // console.log('search param api', searchParam);
   return axios({
     method: "get",
-    url: `${URL}/api/product?${searchParam}`,
+    url: `${URL}/api/product`,
+    params: query
   });
 }
 
@@ -53,6 +66,8 @@ export const sortPrice = (query) => {
   return axios({
     method: "get",
     url: `${URL}/api/product?${searchParam}`,
+    charset: 'utf-8',
+    responseEncoding: 'utf-8'
   });
 }
 

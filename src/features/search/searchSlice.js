@@ -35,9 +35,10 @@ export const searchSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(searchProductsWithNameAsync.fulfilled, (state, action) => {
+        console.log('search fullfiled', action.payload);
         state.isLoading = false;
         state.data = action.payload.data.products;
-        state.resultTotal = action.payload.data.result;
+        state.resultTotal = action.payload.data.result;   
       })
       .addCase(searchProductsWithNameAsync.rejected, (state, action) => {
         state.isLoading = false;
