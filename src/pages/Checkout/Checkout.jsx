@@ -12,16 +12,19 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import { useDispatch, useSelector } from "react-redux";
-import { selectCart } from "../../features/cart/cartSlice";
-import { paymentAsync, selectPayment } from "../../features/payment/paymentSlice";
+import { selectCart, productTotalMoney } from "../../features/cart/cartSlice";
+import {
+  paymentAsync,
+  selectPayment,
+} from "../../features/payment/paymentSlice";
 import { toast } from "react-toastify";
 
 function Checkout() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const userCart = useSelector(selectCart).cartItem;
   const totalMoney = useSelector(selectCart).cartTotalMoney;
-  const payURL = useSelector(selectPayment).payURL
+  const payURL = useSelector(selectPayment);
   const [selector, setSelector] = useState();
   const [address, setAddress] = useState();
 
@@ -62,16 +65,14 @@ function Checkout() {
     }
   };
 
-  if (payURL) window.location.href = payURL
+  if (payURL.payURL) {
+    window.location.href = payURL.payURL
+  }
 
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>
-        <h1>TSHOP</h1>
-      </div>
-
       <div className={styles.back}>
-        <Link to='../cart'>Back</Link>
+        <Link to="../cart">Back</Link>
       </div>
 
       <div className={styles.mainBody}>

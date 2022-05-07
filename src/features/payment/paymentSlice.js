@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { payment } from "../../api";
 
+import { toast } from "react-toastify";
+
 const initialState = {
   isLoading: false,
   payURL: null,
@@ -13,7 +15,18 @@ export const paymentAsync = createAsyncThunk(
       if (localStorage.getItem("accessToken")) {
         const {type, ...data} = payload
         const token = localStorage.getItem("accessToken");
-        const response = await payment(type, token, data);
+
+        const response = await toast.promise(
+          payment(type, token, data),
+          {
+            pending: "Tiến hành gửi thông tin",
+            success: "Gửi thành công",
+            error: "Có Lỗi 🤯",
+          },
+          {
+            style: { fontSize: "1.6rem" },
+          }
+        );
         return response;
       }
     } catch (error) {

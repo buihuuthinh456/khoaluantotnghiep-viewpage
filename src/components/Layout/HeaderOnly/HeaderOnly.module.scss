@@ -1,0 +1,5 @@
+@use '../../../scss' as *;
+
+.content {
+    margin-top: calc($userController-height + $navbar-height );
+}

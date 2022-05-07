@@ -1,0 +1,67 @@
+@use '../../../scss/' as *;
+
+
+.userController {
+    display: block;
+}
+.navbar {
+    display: block;
+}
+
+.searchMobile {
+    display: none;
+    width: 100%;
+    margin-top: calc($userController-height + $navbar-height + 8px);
+    padding: 0 16px;
+    @include mobile() {
+        display: flex;
+    }
+}
+
+.container {
+    margin-top: 60px;
+    padding: 0 100px;
+    display: flex;
+    @include tablet() {
+        display: block;
+        padding: 0 46px;
+    }
+
+    @include mobile() {
+        margin-top: 36px;
+        display: block;
+        padding: 0 16px;
+    }
+}
+
+.sliderContainer {
+    margin-top: calc($userController-height + $navbar-height + 40px);
+    @include mobile() {
+        margin-top: 0;
+    }
+}
+
+.categoryWrapper {
+    flex: 1;
+    height: 100%;
+    margin-right: 50px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 120px;
+
+    @include tablet(){
+        display: none;
+    }
+}
+
+.routerWrapper {
+    flex: 5;
+
+    @include tablet() {
+        flex: 0;
+    }
+
+    @include mobile() {
+        flex: 0;
+    }
+}

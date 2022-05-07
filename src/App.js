@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { publicRoutes } from "./routers";
+import DefaultLayout from "./components/Layout/DefaultLayout";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar/Navbar";
 import Routers from "./routers";
 import styles from "./app.module.scss";
-import { BrowserRouter } from "react-router-dom";
 import UserController from "./components/UserController/UserController";
 import Footer from "./components/Footer/Footer";
 import Category from "./components/Category/Category";
@@ -14,15 +17,13 @@ import "react-toastify/dist/ReactToastify.css";
 import SearchInput from "./components/SearchInput/SearchInput";
 import Button from "./components/Button/Button";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { getUserInfoAsync } from './features/login/loginSlice'
+import { getUserInfoAsync } from "./features/login/loginSlice";
 import { useDispatch } from "react-redux";
 
-
 function App() {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = localStorage.getItem("accessToken");
   const [gotoTop, setGotoTop] = useState(false);
 
   useEffect(() => {
@@ -40,45 +41,40 @@ function App() {
     };
   });
 
-  useEffect(()=>{
-    dispatch(getUserInfoAsync())
-  }, [accessToken])
-
-  // useEffect(()=>{
-  //   console.log('window', window.location)
-  //   window.scrollTo(0,0)
-  // }, [window.location])
+  useEffect(() => {
+    dispatch(getUserInfoAsync());
+  }, [accessToken]);
 
   return (
     <div className={styles.app}>
       <BrowserRouter>
-        <div className={styles.userController}>
-          <UserController />
-        </div>
-        <div className={styles.navbar}>
-          <Navbar />
-        </div>
-        <div className={styles.searchMobile}>
-          <SearchInput width={"100%"} height={"40px"} placeholder="Search..." />
-          <Button color="white" bgColor="#1E90FF" width="50px" margin="0 4px">
-            <SearchOutlinedIcon />
-          </Button>
-        </div>
-        <div className={styles.sliderContainer}>
-          <ImgSlider />
-        </div>
+        <div className={styles.app}>
+          <Routes>
+            {publicRoutes.map((route, index) => {
+              const Page = route.component;
 
-        <div className={styles.container}>
-          <div className={styles.categoryWrapper}>
-            <Category />
-          </div>
-          <div className={styles.routerWrapper}>
-            <Routers />
-          </div>
+              let Layout = DefaultLayout
+
+              if (route.layout) {
+                Layout = route.layout
+              } else if (route.layout === null) {
+                Layout = Fragment
+              }
+
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  }
+                ></Route>
+              );
+            })}
+          </Routes>
         </div>
-        <Fade direction="left" triggerOnce={true}>
-          <Footer />
-        </Fade>
       </BrowserRouter>
       <ToastContainer
         position="top-right"
@@ -94,7 +90,7 @@ function App() {
 
       {gotoTop && (
         <div className={styles.gotoTop} onClick={() => window.scrollTo(0, 0)}>
-          <ArrowUpwardIcon sx={{fontSize: '3rem'}}></ArrowUpwardIcon>
+          <ArrowUpwardIcon sx={{ fontSize: "3rem" }}></ArrowUpwardIcon>
         </div>
       )}
     </div>
@@ -102,4 +98,3 @@ function App() {
 }
 
 export default App;
-
