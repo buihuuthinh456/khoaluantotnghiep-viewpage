@@ -44,7 +44,7 @@ function CategoryPage() {
   // viewProduct
   useEffect(() => {
     dispatch(viewsProductAsync(productID))
-  }, []);
+  }, [productID]);
 
   if (isLoading)
     return (

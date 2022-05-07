@@ -83,10 +83,15 @@
     align-items: center;
     justify-content: center;
     position: relative;
-
+    overflow: hidden;
     &:hover {
         .productController {
             opacity: 1;
+        }
+
+        >img {
+            transition: transform 250ms ease;
+            transform: scale(1.05);
         }
     }
 
@@ -94,6 +99,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        background-position: 25% 50%;
     }
 
     .productController {
@@ -109,6 +115,11 @@
         align-items: center;
         justify-content: center;
         transition: all 300ms ease;
+
+        // &:hover {
+        //     transition: transform 250ms ease;
+        //     transform: scale(1.05);
+        // }
 
         .productIcon {
             margin: 0 16px;

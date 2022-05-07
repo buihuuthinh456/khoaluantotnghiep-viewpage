@@ -127,7 +127,7 @@ export const pagination = (query) => {
 export const viewsProduct = (productID, token) => {
   return axios({
     method: "put",
-    url: `${URL}/api/product/${productID}`,
+    url: `${URL}/api/product/${productID}/views`,
     headers: { Authorization:token },
   })
 }

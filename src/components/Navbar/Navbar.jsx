@@ -38,12 +38,12 @@ function Navbar() {
   }
 
   const handleSearch = (e) => {
-    // dispatch(getParam({
-    //   'name[regex]' : searchInput
-    // }))
-    dispatch(searchProductsWithNameAsync({
+    dispatch(getParam({
       'name[regex]' : searchInput
-    }));
+    }))
+    // dispatch(searchProductsWithNameAsync({
+    //   'name[regex]' : searchInput
+    // }));
     navigate('/search')
   }
 

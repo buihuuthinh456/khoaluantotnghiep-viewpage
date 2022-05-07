@@ -21,8 +21,6 @@ function Search() {
   useEffect(() => {
     if (searchState.searchParam !== null) {
       setSearchParam(searchState.searchParam);
-      console.log('searchState searchParam', searchState.searchParam);
-      // console.log('searchState searchParam', searchParam.get('name[regex]'));
       dispatch(searchProductsWithNameAsync(searchState.searchParam));
     }
   }, [searchState.searchParam]);
