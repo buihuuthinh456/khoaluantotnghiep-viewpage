@@ -25,6 +25,8 @@ import {
   sort,
 } from "../../features/pagination/paginationSlice";
 
+import CurrencyFormat from "../../functionJS";
+
 function CategoryPage() {
   const dispatch = useDispatch();
   const categoryPageState = useSelector(selectCategoryPage);
@@ -35,14 +37,14 @@ function CategoryPage() {
   const [renderProduct, setRenderProduct] = useState([]);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState({
-    'sort': null,
-    'page': 1
-  })
+    sort: null,
+    page: page,
+  });
   const { category } = useParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setSearchParam(query)
+    setSearchParam(query);
   }, []);
 
   useEffect(() => {
@@ -69,28 +71,47 @@ function CategoryPage() {
     setRenderProduct(paginationState.data);
   }, [paginationState.data]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (filter) {
       setSearchParam({
-        'sort': filter
-      })
-      dispatch(sort(filter))
+        page: page,
+        sort: filter,
+      });
+      dispatch(sort(filter));
     }
-  }, [filter])
+  }, [filter]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setRenderProduct(paginationState.dataSort);
-  }, [paginationState.dataSort])
+  }, [paginationState.dataSort]);
 
   const handleChangeFilter = (event) => {
     setFilter(event.target.value);
+    // setQuery((state) => {
+    //   return {
+    //     ...state,
+    //     sort: filter,
+    //   };
+    // });
+    // setSearchParam(query)
   };
 
   const handleChangePage = (event, value) => {
-    setPage(value);
-    setSearchParam({
-      page: value,
-    });
+    // setPage(value);
+    // setQuery((state) => {
+    //   return {
+    //     ...state,
+    //     page: page,
+    //   };
+    // });
+    // setSearchParam(query)
+    setPage(value)
+    setQuery(state => {
+      const param = {...state, page: value}
+      setSearchParam(param)
+      dispatch(paginationAsync(param))
+      return param
+    })
   };
 
   if (categoryPageState.isLoading)
@@ -160,7 +181,9 @@ function CategoryPage() {
 
                 <div className={styles.productInfo}>
                   <h3 className={styles.productName}>{item.name}</h3>
-                  <div className={styles.productPrice}>{`$${item.price}`}</div>
+                  <div className={styles.productPrice}>
+                    {CurrencyFormat(item.price)}
+                  </div>
                 </div>
               </li>
             ))}

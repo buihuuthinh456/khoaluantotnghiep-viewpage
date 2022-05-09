@@ -49,10 +49,7 @@ export const searchProductsWithName = (query) => {
     queryString = queryString + '&' + key + '=' + query[key]
   }
 
-  console.log(queryString);
   queryString = queryString.slice(1)
-  console.log('after',queryString);
-  console.log('search api',`${URL}/api/product?${queryString}`)
   // console.log('search param api', searchParam);
   return axios({
     method: "get",

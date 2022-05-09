@@ -6,6 +6,7 @@ import { selectHome, getHomeAsync } from "../../features/home/homeSlice";
 import { Link } from "react-router-dom";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
+import CurrencyFormat from "../../functionJS";
 
 function Home() {
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ function Home() {
 
                 <div className={styles.productInfo}>
                   <h3 className={styles.productName}>{item.name}</h3>
-                  <div className={styles.productPrice}>{`$${item.price}`}</div>
+                  <div className={styles.productPrice}>{CurrencyFormat(item.price)}</div>
                 </div>
               </li>
             ))}

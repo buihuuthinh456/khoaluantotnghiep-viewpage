@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Base64 } from "js-base64";
 import CheckIcon from "../../components/CheckIcon";
+import CurrencyFormat from "../../functionJS";
 
 function Sucessful() {
   const navigate = useNavigate();
@@ -100,7 +101,7 @@ function Sucessful() {
               </li>
               <li className={styles.billInfoItem}>
                 <p>Tổng tiền thanh toán</p>
-                <span>{data.amount}</span>
+                <span>{CurrencyFormat(data.amount)}</span>
               </li>
             </ul>
 

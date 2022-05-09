@@ -13,6 +13,7 @@ import { selectCart, deleteItemCartAsync, getCartAsync, increaseQuantity, decrea
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import BuyProducts from "../../components/BuyProducts/BuyProducts";
+import CurrencyFormat from "../../functionJS";
 
 function Cart() {
   const navigate = useNavigate()
@@ -75,7 +76,7 @@ function Cart() {
             <div className={styles.productInfo}>
               <div className={styles.row}>
                 <h3 className={styles.productName}>{item.name}</h3>
-                <h3 className={styles.productPrice}>{`$${item.totalMoney}`}</h3>
+                <h3 className={styles.productPrice}>{CurrencyFormat(item.totalMoney)}</h3>
               </div>
 
               <div className={styles.row}>

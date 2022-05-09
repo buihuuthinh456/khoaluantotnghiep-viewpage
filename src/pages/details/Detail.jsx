@@ -13,6 +13,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import Loading from "../../components/Loading/Loading";
 import Comments from "../../components/Comments/Comments";
 import { addItemCartAsync } from '../../features/cart/cartSlice'
+import CurrencyFormat from "../../functionJS";
 
 function CategoryPage() {
   const { productID } = useParams();
@@ -70,7 +71,7 @@ function CategoryPage() {
           <div className={styles.productInfo}>
             <h1 className={styles.title}>{detailProduct.name}</h1>
             <div className={styles.price}>
-              <span>{`$ ${detailProduct.price}`}</span>
+              <span>{CurrencyFormat(detailProduct.price)}</span>
             </div>
             <div className={styles.desc}>
               <h2>Description</h2>

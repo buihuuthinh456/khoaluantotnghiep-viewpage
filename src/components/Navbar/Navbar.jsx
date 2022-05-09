@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectSearch, getParam, searchProductsWithNameAsync } from "../../features/search/searchSlice";
 import { selectLogin } from "../../features/login/loginSlice";
 import { selectCart, deleteItemCartAsync, getCartAsync } from "../../features/cart/cartSlice";
+import CurrencyFormat from "../../functionJS";
 
 function Navbar() {
   const navigate = useNavigate()
@@ -90,7 +91,7 @@ function Navbar() {
                           <div className={styles.row}>
                             <h3 className={styles.productName}>{item.name}</h3>
                             <div className={styles.cartWrapper}>
-                              <div className={styles.productPrize}>{`$${item.price}`}</div>
+                              <div className={styles.productPrize}>{CurrencyFormat(item.price)}</div>
                               <span className={styles.multiply}>x</span>
                               <span className={styles.quantity}>{item.quantity}</span>
                             </div>

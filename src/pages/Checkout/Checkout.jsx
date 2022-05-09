@@ -18,6 +18,7 @@ import {
   selectPayment,
 } from "../../features/payment/paymentSlice";
 import { toast } from "react-toastify";
+import CurrencyFormat from "../../functionJS";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -93,7 +94,7 @@ function Checkout() {
                     <div className={styles.productItemInfo}>
                       <span className={styles.productName}>{item.name}</span>
                       <div className={styles.productMoney}>
-                        ${item.totalMoney}
+                        {CurrencyFormat(item.totalMoney)}
                       </div>
                     </div>
                   </li>
@@ -103,7 +104,7 @@ function Checkout() {
 
           <div className={styles.finalCheck}>
             <p>Total money</p>
-            <span>${totalMoney}</span>
+            <span>{CurrencyFormat(totalMoney)}</span>
           </div>
         </div>
 
