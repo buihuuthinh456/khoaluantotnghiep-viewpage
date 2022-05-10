@@ -46,8 +46,9 @@ export const paymentSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(paymentAsync.fulfilled, (state, action) => {
+        console.log('paymentSlice fullfiled', action.payload)
         state.isLoading = false;
-        state.payURL = action.payload.data.payUrl
+        state.payURL = action.payload.data.payUrl || action.payload.data.payment_Url
       })
       .addCase(paymentAsync.rejected, (state, action) => {
         state.isLoading = false;

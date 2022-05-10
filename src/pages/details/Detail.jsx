@@ -1,35 +1,45 @@
-import React, { useEffect, useState } from "react";
 import styles from "./detail.module.scss";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectDetailProduct,
   fetchDetailProduct,
   viewsProductAsync,
 } from "../../features/detailProduct/detailProductSlice";
-import { Link, useParams } from "react-router-dom";
+import { addItemCartAsync } from "../../features/cart/cartSlice";
+import { selectVoting, voteAsync } from '../../features/vote/voteSlice'
+
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Loading from "../../components/Loading/Loading";
 import Comments from "../../components/Comments/Comments";
-import { addItemCartAsync } from '../../features/cart/cartSlice'
 import CurrencyFormat from "../../functionJS";
+import ReactStars from "react-rating-stars-component";
 
 function CategoryPage() {
   const { productID } = useParams();
   const [amount, setAmount] = useState(1);
+  const [rating, setRating] = useState()
 
   const dispatch = useDispatch();
 
   const detailProduct = useSelector(selectDetailProduct).data;
   const isLoading = useSelector(selectDetailProduct).isLoading;
+  const msg = useSelector(selectVoting).msg
 
   // When add product
   const handleAddProduct = () => {
-    const totalMoney = detailProduct.price * amount
-    console.log('detail', totalMoney);
-    const dataSend = {...detailProduct, quantity: amount, totalMoney: totalMoney};
-    dispatch(addItemCartAsync(dataSend))
+    const totalMoney = detailProduct.price * amount;
+    console.log("detail", totalMoney);
+    const dataSend = {
+      ...detailProduct,
+      quantity: amount,
+      totalMoney: totalMoney,
+    };
+    dispatch(addItemCartAsync(dataSend));
   };
 
   // lấy giữ liệu
@@ -44,8 +54,19 @@ function CategoryPage() {
 
   // viewProduct
   useEffect(() => {
-    dispatch(viewsProductAsync(productID))
+    dispatch(viewsProductAsync(productID));
   }, [productID]);
+
+  const ratingChanged = (newRating) => {
+    setRating(newRating);
+    const dataPost = {
+      data : {
+        'score': newRating
+      },
+      productID: productID
+    }
+    dispatch(voteAsync(dataPost))
+  }
 
   if (isLoading)
     return (
@@ -114,12 +135,21 @@ function CategoryPage() {
         </div>
       )}
 
-      <div className={styles.commentSection}>
-        <Comments 
-          productID = {productID}
+      <div className={styles.rating}>
+        <h2>Đánh giá sản phẩm</h2>
+        <ReactStars
+          count={5}
+          onChange={ratingChanged}
+          size={38}
+          activeColor="#ffd700"
         />
+        
+        {msg && <span>{msg}</span>}
       </div>
 
+      <div className={styles.commentSection}>
+        <Comments productID={productID} />
+      </div>
     </>
   );
 }

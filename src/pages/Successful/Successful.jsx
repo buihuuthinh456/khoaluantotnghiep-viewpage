@@ -13,20 +13,24 @@ function Sucessful() {
   const navigate = useNavigate();
   // code sau khi có data từ url trả về của MOMO
 
-  // const [data, setData] = useState({})
-  // useEffect(() => {
-  //   const searchURL = window.location.search;
-  //   const params = new URLSearchParams(searchURL);
-  //   let paramObj = {};
-  //   for (var value of params.keys()) {
-  //     paramObj[value] = params.get(value);
-  //   }
-  //   const extraData = JSON.parse(Base64.decode(paramObj.extraData))
+  const [dataURL, setdataURL] = useState({})
+  useEffect(() => {
+    const searchURL = window.location.search;
+    console.log('paymentURL success', searchURL);
+    const params = new URLSearchParams(searchURL);
+    let paramObj = {};
+    for (var value of params.keys()) {
+      paramObj[value] = params.get(value);
+    }
+    console.log('urlObj', paramObj);
+    const decodeString = Base64.decode(paramObj.extraData)
+    console.log('decodeString', decodeString);
+    let extraData = JSON.parse(decodeString);
+    console.log(extraData);
+    setdataURL({...paramObj, extraData})
+  }, []);
 
-  //   setData({...paramObj, extraData})
-  // }, []);
-
-  // console.log('success', data);
+  console.log('success', dataURL);
 
   const data = {
     amount: 3640,

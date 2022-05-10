@@ -12,6 +12,7 @@ import sortReducer from '../features/sort/sortSlice'
 import commentsReducer from '../features/comments/commentsSlice'
 import paginationReducer from '../features/pagination/paginationSlice'
 import paymentReducer from '../features/payment/paymentSlice'
+import voteReducer from '../features/vote/voteSlice'
 
  
 export const store = configureStore({
@@ -29,5 +30,6 @@ export const store = configureStore({
     comments: commentsReducer,
     pagination: paginationReducer,
     payment: paymentReducer,
+    vote: voteReducer,
   },
 });

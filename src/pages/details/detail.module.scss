@@ -184,6 +184,23 @@
     }
 }
 
+// rating
+.rating {
+    h2 {
+        color: $text-color;
+        letter-spacing: 1.1px;
+    }
+
+    span {
+        margin: 8px 0;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: $text-color;
+    }
+}
+
+
+
 // Comments section
 
 .commentSection {
