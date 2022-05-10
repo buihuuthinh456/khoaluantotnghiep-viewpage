@@ -141,11 +141,14 @@ export const payment = (type, token, payload) => {
 
 // voting
 export const voting = (token, productID, payload) => {
+  console.log('voting api', payload)
   return axios({
     method:'put',
     url: `${URL}/api/product/${productID}/votes`,
     headers: { Authorization:token },
-    data: payload
+    data: {
+      score: payload
+    }
   })
 }
 

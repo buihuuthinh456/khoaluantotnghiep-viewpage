@@ -60,9 +60,7 @@ function CategoryPage() {
   const ratingChanged = (newRating) => {
     setRating(newRating);
     const dataPost = {
-      data : {
-        'score': newRating
-      },
+      score: Number(newRating),
       productID: productID
     }
     dispatch(voteAsync(dataPost))

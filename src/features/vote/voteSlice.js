@@ -16,8 +16,8 @@ export const voteAsync = createAsyncThunk(
     try {
         if (localStorage.getItem('accessToken')) {
             const token = localStorage.getItem('accessToken')
-            const {productID, ...data} = payload
-            const response = await voting(token, productID, data);
+            const {productID, score} = payload
+            const response = await voting(token, productID, score);
             return response
         }
     } catch (error) {
@@ -36,6 +36,7 @@ export const voteSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(voteAsync.fulfilled, (state, action) => {
+        console.log('voteSlice', action.payload)
         state.msg = action.payload.data.msg
       })
       .addCase(voteAsync.rejected, (state, action) => {
