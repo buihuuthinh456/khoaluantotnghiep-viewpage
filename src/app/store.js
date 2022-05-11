@@ -8,9 +8,7 @@ import modalReducer from '../features/modal/modalSlice';
 import detailProductReducer from '../features/detailProduct/detailProductSlice';
 import cartReducer from '../features/cart/cartSlice'
 import searchReducer from '../features/search/searchSlice'
-import sortReducer from '../features/sort/sortSlice'
 import commentsReducer from '../features/comments/commentsSlice'
-import paginationReducer from '../features/pagination/paginationSlice'
 import paymentReducer from '../features/payment/paymentSlice'
 import voteReducer from '../features/vote/voteSlice'
 
@@ -26,9 +24,7 @@ export const store = configureStore({
     detailProduct: detailProductReducer,
     cart: cartReducer,
     search: searchReducer,
-    sort: sortReducer,
     comments: commentsReducer,
-    pagination: paginationReducer,
     payment: paymentReducer,
     vote: voteReducer,
   },

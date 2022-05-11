@@ -63,8 +63,6 @@ export const sortPrice = (query) => {
   return axios({
     method: "get",
     url: `${URL}/api/product?${searchParam}`,
-    charset: 'utf-8',
-    responseEncoding: 'utf-8'
   });
 }
 

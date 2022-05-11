@@ -4,13 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectCategoryPage,
   categoryPageAsync,
+  paginationAsync,
+  sortPriceAsync
 } from "../../features/categoryPage/categoryPageSlice";
-import {
-  defaultData,
-  sortPriceAsync,
-  selectSort,
-} from "../../features/sort/sortSlice";
+
 import { Link, useParams, useSearchParams } from "react-router-dom";
+
 import Loading from "../../components/Loading/Loading";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
@@ -19,29 +18,22 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Pagination from "@mui/material/Pagination";
-import {
-  paginationAsync,
-  selectPagination,
-  sort,
-} from "../../features/pagination/paginationSlice";
-
 import CurrencyFormat from "../../functionJS";
 
 function CategoryPage() {
   const dispatch = useDispatch();
+  const { category } = useParams();
   const categoryPageState = useSelector(selectCategoryPage);
-  const paginationState = useSelector(selectPagination);
 
   const [searchParam, setSearchParam] = useSearchParams();
   const [filter, setFilter] = useState();
-  const [renderProduct, setRenderProduct] = useState([]);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState({
     sort: null,
     page: page,
+    "category[regex]": category
   });
-  const { category } = useParams();
-
+ 
   useEffect(() => {
     window.scrollTo(0, 0);
     setSearchParam(query);
@@ -51,63 +43,20 @@ function CategoryPage() {
     dispatch(categoryPageAsync(category));
   }, [category]);
 
-  useEffect(() => {
-    setRenderProduct(categoryPageState.products);
-  }, [categoryPageState.products]);
-
-  // set Page
-  useEffect(() => {
-    if (searchParam.get("page")) {
-      dispatch(
-        paginationAsync({
-          page: searchParam.get("page"),
-        })
-      );
-    }
-  }, [searchParam.get("page")]);
-
-  // sort Page
-  useEffect(() => {
-    setRenderProduct(paginationState.data);
-  }, [paginationState.data]);
-
-  useEffect(() => {
-    if (filter) {
-      setSearchParam({
-        page: page,
-        sort: filter,
-      });
-      dispatch(sort(filter));
-    }
-  }, [filter]);
-
-  useEffect(() => {
-    setRenderProduct(paginationState.dataSort);
-  }, [paginationState.dataSort]);
-
   const handleChangeFilter = (event) => {
     setFilter(event.target.value);
-    // setQuery((state) => {
-    //   return {
-    //     ...state,
-    //     sort: filter,
-    //   };
-    // });
-    // setSearchParam(query)
+    setQuery(state => {
+      const param = {...state,"category[regex]": category, sort: event.target.value}
+      setSearchParam(param)
+      dispatch(sortPriceAsync(param))
+      return param
+    })
   };
 
   const handleChangePage = (event, value) => {
-    // setPage(value);
-    // setQuery((state) => {
-    //   return {
-    //     ...state,
-    //     page: page,
-    //   };
-    // });
-    // setSearchParam(query)
     setPage(value)
     setQuery(state => {
-      const param = {...state, page: value}
+      const param = {...state, page: value, "category[regex]": category}
       setSearchParam(param)
       dispatch(paginationAsync(param))
       return param
@@ -115,13 +64,6 @@ function CategoryPage() {
   };
 
   if (categoryPageState.isLoading)
-    return (
-      <div className={styles.loading}>
-        <Loading size={100} />
-      </div>
-    );
-
-  if (paginationState.isLoading)
     return (
       <div className={styles.loading}>
         <Loading size={100} />
@@ -151,8 +93,8 @@ function CategoryPage() {
           <h3>{category}</h3>
         </div>
         <ul className={styles.productList}>
-          {renderProduct &&
-            renderProduct.map((item) => (
+          {categoryPageState.products &&
+            categoryPageState.products.map((item) => (
               <li key={item._id} className={styles.productItem}>
                 <Link
                   to={`/detail/${item._id}`}
