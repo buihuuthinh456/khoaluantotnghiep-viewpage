@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./comments.module.scss";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Loading from "../Loading/Loading";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectComments,
@@ -9,12 +11,16 @@ import {
   postCommentAsync,
 } from "../../features/comments/commentsSlice";
 import { selectLogin } from "../../features/login/loginSlice";
-import Loading from "../Loading/Loading";
+
+
+import { toast } from "react-toastify";
 
 function Comments({ productID }) {
   const [textInput, setTextInput] = useState("");
   const [renderComments, setRenderComments] = useState();
+
   const commentsProduct = useSelector(selectComments);
+  const isLogin = useSelector(selectLogin).isLogin
   const dispatch = useDispatch();
 
   // get Product Comments the first times
@@ -30,12 +36,19 @@ function Comments({ productID }) {
 
   // handle comments
   const handlePostComment = () => {
-    const data = {
-      productId: productID,
-      content: textInput,
-    };
-    dispatch(postCommentAsync(data));
-    setTextInput("");
+    if (!isLogin) {
+      toast.error('Vui lòng đăng nhập trước khi bình luận', {
+        position: toast.POSITION.TOP_RIGHT,
+        style: { fontSize: "1.6rem" },
+      });
+    } else {
+      const data = {
+        productId: productID,
+        content: textInput,
+      };
+      dispatch(postCommentAsync(data));
+      setTextInput("");
+    }
   };
 
   if (commentsProduct.isLoading)

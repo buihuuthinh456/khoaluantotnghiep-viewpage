@@ -7,9 +7,10 @@ import {
   selectDetailProduct,
   fetchDetailProduct,
   viewsProductAsync,
+  voteAsync,
 } from "../../features/detailProduct/detailProductSlice";
 import { addItemCartAsync } from "../../features/cart/cartSlice";
-import { selectVoting, voteAsync } from '../../features/vote/voteSlice'
+// import { selectVoting, voteAsync } from '../../features/vote/voteSlice'
 
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -18,17 +19,21 @@ import Loading from "../../components/Loading/Loading";
 import Comments from "../../components/Comments/Comments";
 import CurrencyFormat from "../../functionJS";
 import ReactStars from "react-rating-stars-component";
+import { selectLogin } from "../../features/login/loginSlice";
+import { toast } from "react-toastify";
 
 function CategoryPage() {
   const { productID } = useParams();
   const [amount, setAmount] = useState(1);
-  const [rating, setRating] = useState()
+  const [rating, setRating] = useState();
 
   const dispatch = useDispatch();
 
+  const isLogin = useSelector(selectLogin).isLogin;
   const detailProduct = useSelector(selectDetailProduct).data;
   const isLoading = useSelector(selectDetailProduct).isLoading;
-  const msg = useSelector(selectVoting).msg
+  const voteMsg = useSelector(selectDetailProduct).voteMsg;
+  // const msg = useSelector(selectVoting).msg
 
   // When add product
   const handleAddProduct = () => {
@@ -57,14 +62,22 @@ function CategoryPage() {
     dispatch(viewsProductAsync(productID));
   }, [productID]);
 
+  // vote sản phẩm
   const ratingChanged = (newRating) => {
-    setRating(newRating);
-    const dataPost = {
-      score: Number(newRating),
-      productID: productID
+    if (!isLogin) {
+      toast.error("Vui lòng đăng nhập trước đánh giá", {
+        position: toast.POSITION.TOP_RIGHT,
+        style: { fontSize: "1.6rem" },
+      });
+    } else {
+      setRating(newRating);
+      const dataPost = {
+        score: Number(newRating),
+        productID: productID,
+      };
+      dispatch(voteAsync(dataPost));
     }
-    dispatch(voteAsync(dataPost))
-  }
+  };
 
   if (isLoading)
     return (
@@ -141,8 +154,7 @@ function CategoryPage() {
           size={38}
           activeColor="#ffd700"
         />
-        
-        {msg && <span>{msg}</span>}
+        {rating && <span>Cảm ơn đã vote</span>}
       </div>
 
       <div className={styles.commentSection}>

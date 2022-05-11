@@ -10,7 +10,6 @@ import cartReducer from '../features/cart/cartSlice'
 import searchReducer from '../features/search/searchSlice'
 import commentsReducer from '../features/comments/commentsSlice'
 import paymentReducer from '../features/payment/paymentSlice'
-import voteReducer from '../features/vote/voteSlice'
 
  
 export const store = configureStore({
@@ -26,6 +25,5 @@ export const store = configureStore({
     search: searchReducer,
     comments: commentsReducer,
     payment: paymentReducer,
-    vote: voteReducer,
   },
 });

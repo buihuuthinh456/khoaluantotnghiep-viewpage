@@ -43,6 +43,7 @@ function CategoryPage() {
     dispatch(categoryPageAsync(category));
   }, [category]);
 
+
   const handleChangeFilter = (event) => {
     setFilter(event.target.value);
     setQuery(state => {
