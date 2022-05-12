@@ -68,6 +68,20 @@
     }
 }
 
+.productRate {
+    display: flex;
+    align-items: center;
+
+    .productRateText {
+        margin-left: 36px;
+        font-size: 2rem;
+        font-weight: 400;
+        color: $text-color;
+        line-height: 16px;
+        transform: translateY(2px);
+    }
+}
+
 .desc {
     margin: 16px 0;
     h2 {

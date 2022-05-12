@@ -26,6 +26,8 @@ function CategoryPage() {
   const { productID } = useParams();
   const [amount, setAmount] = useState(1);
   const [rating, setRating] = useState();
+  const [table, setTable] = useState(null);
+  const [productRate, setProductRate] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -33,6 +35,7 @@ function CategoryPage() {
   const detailProduct = useSelector(selectDetailProduct).data;
   const isLoading = useSelector(selectDetailProduct).isLoading;
   const voteMsg = useSelector(selectDetailProduct).voteMsg;
+  const voteList = useSelector(selectDetailProduct).voting;
   // const msg = useSelector(selectVoting).msg
 
   // When add product
@@ -57,10 +60,32 @@ function CategoryPage() {
     window.scrollTo(0, 0);
   }, []);
 
-  // viewProduct
   useEffect(() => {
-    dispatch(viewsProductAsync(productID));
-  }, [productID]);
+    if (voteList) {
+      const totalScore = voteList.reduce((acc, cur) => {
+        return acc + cur.score;
+      }, 0);
+      console.log("totalScore", totalScore);
+      setProductRate(totalScore / voteList.length);
+    }
+  }, [voteList]);
+
+  // viewProduct
+
+  // extract html tags from description
+  // useEffect(()=>{
+  //   if (!isLoading) {
+  //     const htmlIndex = detailProduct.description.indexOf("<")
+  //     console.log('<specifications> point', htmlIndex);
+  //     if (htmlIndex !== -1) {
+  //       const tableString = detailProduct.description.slice(htmlIndex)
+  //       console.log('tableString', tableString);
+  //       setTable(tableString)
+  //     } else {
+  //       console.log('fail');
+  //     }
+  //   }
+  // }, [detailProduct])
 
   // vote sản phẩm
   const ratingChanged = (newRating) => {
@@ -105,11 +130,22 @@ function CategoryPage() {
             <div className={styles.price}>
               <span>{CurrencyFormat(detailProduct.price)}</span>
             </div>
+            <div className={styles.productRate}>
+              {console.log('totalRate', productRate)}
+              <ReactStars
+                count={5}
+                onChange={ratingChanged}
+                size={24}
+                activeColor="#ffd700"
+                value={productRate}
+                edit = {false}
+              />
+              <span className={styles.productRateText}>{productRate ? productRate : 0} / 5.0</span>
+            </div>
             <div className={styles.desc}>
               <h2>Description</h2>
               <span>{detailProduct.description}</span>
             </div>
-
             <div className={styles.productController}>
               <div className={styles.quantity}>
                 <div className={styles.removeButton}>
@@ -145,6 +181,8 @@ function CategoryPage() {
           </div>
         </div>
       )}
+
+      {/* {table && table} */}
 
       <div className={styles.rating}>
         <h2>Đánh giá sản phẩm</h2>

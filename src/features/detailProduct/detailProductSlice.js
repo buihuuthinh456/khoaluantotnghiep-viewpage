@@ -2,9 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 import {
-  getComment,
   getDetailProduct,
-  postComment,
   viewsProduct,
   voting,
 } from "../../api";
@@ -13,6 +11,7 @@ const initialState = {
   isLoading: false,
   data: null,
   voteMsg: null,
+  voting: null
 };
 
 // get single products INFO
@@ -64,7 +63,9 @@ export const voteAsync = createAsyncThunk(
 export const detailProductSlice = createSlice({
   name: "detailProduct",
   initialState,
-  reducers: {},
+  reducers: {
+
+  },
   extraReducers: (builder) => {
     // get single products INFO
     builder
@@ -77,6 +78,7 @@ export const detailProductSlice = createSlice({
           state.data = { ...data };
         }
         state.isLoading = false;
+        state.voting = action.payload.data.votes
       });
 
     // Increase views of products
@@ -84,8 +86,9 @@ export const detailProductSlice = createSlice({
       console.log("viewsProductAsync fulfilled", action.payload);
     });
 
+    // Vote 
     builder.addCase(voteAsync.fulfilled, (state,action)=>{
-      console.log('voteSlice', action.payload)
+      console.log('votingdetail Fulfilled', action.payload.data);
       state.voteMsg = action.payload.msg
       state.data = action.payload.data
     })
