@@ -1,0 +1,44 @@
+@use '../../scss/' as *;
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E8E8E8;
+    width: 100vw;
+    height: 100vh;
+} 
+
+.body {
+
+}
+
+.header {
+    h1 {
+        text-align: center;
+        font-size: 5.4rem;
+        font-weight: 600;
+        color: $text-color;
+        margin: 8px 0;
+    }
+}
+
+.content {
+    margin-top: 20px;
+    span {
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 500;
+        color: $text-color;
+    }
+}
+
+.button {
+    margin-top: 36px;
+    display: flex;
+    justify-content: center;
+    button {
+        padding: 12px 20px;
+        font-size: 1.45rem;
+    }
+}

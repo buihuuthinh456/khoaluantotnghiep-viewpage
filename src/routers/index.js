@@ -7,15 +7,17 @@ import Search from '../pages/Search/Search';
 import Checkout from '../pages/Checkout/Checkout';
 import Successful from '../pages/Successful/Successful';
 import HeaderOnly from '../components/Layout/HeaderOnly'
+import PageNotFound from '../pages/PageNotFound';
 
 const publicRoutes = [
   {path: '/', component: Home },
-  {path: '/:category', component: CategoryPage },
+  {path: '/category/:category', component: CategoryPage },
   {path: '/detail/:productID', component: Details },
   {path: '/cart', component: Cart },
   {path: '/search', component: Search},
   {path: '/checkout', component: Checkout, layout: HeaderOnly },
   {path: '/successful', component: Successful, layout: null },
+  {path: '*', component: PageNotFound, layout: null },
 ]
 
 export { publicRoutes }

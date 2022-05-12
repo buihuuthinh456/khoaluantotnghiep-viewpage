@@ -1,4 +1,9 @@
-import React, {useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectHome, getTopicImgAsync } from '../../features/home/homeSlice'
+
+
+
 import styles from './imgSlider.module.scss'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
@@ -21,6 +26,12 @@ const SliderDots = ({children}) => {
 function ImgSlider() {
 
   let slider = useRef()
+  const dispatch = useDispatch()
+  const imgSlider = useSelector(selectHome).imgSlider
+
+  useEffect(()=>{
+    dispatch(getTopicImgAsync())
+  }, [imgSlider])
 
   const settings = {
     dots: true,

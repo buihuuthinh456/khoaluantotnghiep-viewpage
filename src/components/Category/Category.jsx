@@ -40,7 +40,7 @@ function Category() {
             >
                 {data && data.map((item, index) => (
                     <li key={index} className={styles.item}>
-                        <Link to={`/${item.name}`} className={styles.itemLink}>
+                        <Link to={`/category/${item.name}`} className={styles.itemLink}>
                             <ArrowForwardIosIcon style={{fontSize: '1.6rem', color: '#333'}}/>
                             <span>{item.name}</span>
                         </Link>

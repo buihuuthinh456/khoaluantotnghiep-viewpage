@@ -150,3 +150,13 @@ export const voting = (token, productID, payload) => {
   })
 }
 
+// ImgSlider
+
+export const imgSlider = (token) => {
+  return axios({
+    method: 'get',
+    url:`${URL}/api/topic-img`,
+    header: { Authorization:token }
+  })
+}
+
