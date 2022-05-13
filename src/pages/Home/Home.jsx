@@ -100,7 +100,7 @@ function Home() {
 
                 <div className={styles.productInfo}>
                   <h3 className={styles.productName}>{item.name}</h3>
-                  <div className={styles.productPrice}>{`$${item.price}`}</div>
+                  <div className={styles.productPrice}>{CurrencyFormat(item.price)}</div>
                 </div>
               </li>
             ))}
@@ -139,7 +139,7 @@ function Home() {
 
                 <div className={styles.productInfo}>
                   <h3 className={styles.productName}>{item.name}</h3>
-                  <div className={styles.productPrice}>{`$${item.price}`}</div>
+                  <div className={styles.productPrice}>{CurrencyFormat(item.price)}</div>
                 </div>
               </li>
             ))}

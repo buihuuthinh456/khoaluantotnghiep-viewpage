@@ -132,14 +132,14 @@ function CategoryPage() {
             </div>
             <div className={styles.productRate}>
               {console.log('totalRate', productRate)}
-              <ReactStars
+              {productRate && <ReactStars
                 count={5}
                 onChange={ratingChanged}
                 size={24}
                 activeColor="#ffd700"
-                value={productRate}
+                value={productRate || 0}
                 edit = {false}
-              />
+              />}
               <span className={styles.productRateText}>{productRate ? productRate : 0} / 5.0</span>
             </div>
             <div className={styles.desc}>

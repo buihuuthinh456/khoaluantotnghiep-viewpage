@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .body{
+        margin: auto;
+        // width: 60vw;
+        // height: 60vh;
+        background-color: white;
+    }
+}

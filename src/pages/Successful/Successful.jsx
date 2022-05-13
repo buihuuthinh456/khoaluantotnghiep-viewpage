@@ -13,7 +13,7 @@ function Successful() {
   const navigate = useNavigate();
   // code sau khi có data từ url trả về của MOMO
 
-  const [dataURL, setdataURL] = useState(null)
+  const [dataURL, setdataURL] = useState(null);
   useEffect(() => {
     const searchURL = window.location.search;
     const params = new URLSearchParams(searchURL);
@@ -27,7 +27,7 @@ function Successful() {
     // console.log(JSON.parse(decodeStr))
     const extraData = JSON.parse(Base64.decode(paramObj.extraData));
     // console.log('after decode',extraData);
-    setdataURL({...paramObj, extraData})
+    setdataURL({ ...paramObj, extraData });
   }, []);
 
   // console.log('success', dataURL);
@@ -98,11 +98,7 @@ function Successful() {
                 </li>
                 <li className={styles.billInfoItem}>
                   <p>Hình thức thanh toán</p>
-                  <span>
-                    {dataURL.orderInfo === "Pay with MOMO"
-                      ? "Momo"
-                      : "Tiền mặt"}
-                  </span>
+                  <span>{dataURL.orderInfo ? dataURL.orderInfo : "Tiền mặt"}</span>
                 </li>
                 <li className={styles.billInfoItem}>
                   <p>Địa chỉ nhận hàng</p>
