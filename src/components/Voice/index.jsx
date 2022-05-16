@@ -3,31 +3,34 @@ import styles from "./Voice.module.scss";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
+import MicOffIcon from "@mui/icons-material/MicOff";
 
-
-function Voice() {
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
+function Voice({ transcript, isSupport, listening}) {
+  if (!isSupport) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.body}>
+          <h1>
+            Trình duyệt không hỗ trợ chức năng này, quý khách vui lòng thông cảm
+          </h1>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.body}>
-        <h1>Listening</h1>
-        <p>{transcript}</p>
-      </div>
-    </div>
+    <>
+      {listening && (
+        <div className={styles.container}>
+          <div className={styles.body}>
+            <h1>Listening...</h1>
+            {listening ? <KeyboardVoiceIcon /> : <MicOffIcon />}
+            <p>{transcript}</p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

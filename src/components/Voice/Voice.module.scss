@@ -1,12 +1,42 @@
+@use '../../scss/' as *;
+
 .container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 100;
+  display: flex;
+
+  .body {
+    margin: auto;
+    width: 60vw;
+    height: 60vh;
+    background-color: white;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    .body{
-        margin: auto;
-        // width: 60vw;
-        // height: 60vh;
-        background-color: white;
+    h1 {
+        font-size: 2.9rem;
+        font-weight: 700;
+        color: $text-color;
     }
+
+    :global(.MuiSvgIcon-root) {
+        margin: 20px;
+        font-size: 4rem;
+        color: $text-color;
+    }
+
+    p {
+        font-size: 1.65rem;
+        font-weight: 400;
+        color: $text-color;
+        line-height: 16px;
+    }
+  }
 }

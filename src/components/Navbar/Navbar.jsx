@@ -13,6 +13,11 @@ import {
   getCartAsync,
 } from "../../features/cart/cartSlice";
 
+// Voice Recognition
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+
 import SearchInput from "../SearchInput/SearchInput";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
@@ -27,6 +32,7 @@ import Modal from "@mui/material/Modal";
 import CurrencyFormat from "../../functionJS";
 
 function Navbar() {
+  // redux
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userPersonalCart = useSelector(selectLogin).cart;
@@ -35,12 +41,19 @@ function Navbar() {
 
   const [searchParam, setSearchParam] = useSearchParams();
 
+  // 
   const [cartAmount, setCartAmount] = useState(0);
   const [cartItem, setCartItem] = useState();
   const [searchInput, setSearchInput] = useState();
   const [voiceSearch, setVoiceSearch] = useState(false);
-  const [open, setOpen] = useState(false);
-  const handleCloseModal = () => setVoiceSearch(false);
+
+  // Voice recognition
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
 
   useEffect(() => {
     dispatch(getCartAsync());
@@ -57,8 +70,21 @@ function Navbar() {
   };
 
   const handleListen = () => {
-    setVoiceSearch(true)
+    SpeechRecognition.startListening();
   };
+
+  useEffect(()=>{
+    if (!transcript) {
+      setSearchParam()
+    } else {
+      dispatch(
+        getParam({
+          "name[regex]": transcript,
+        })
+      );
+      navigate("/search");
+    }
+  }, [transcript])
 
   const handleSearch = (e) => {
     dispatch(
@@ -156,15 +182,11 @@ function Navbar() {
           </div>
         </div>
       </div>
-
-      {voiceSearch && (
-        <Modal
-          open={voiceSearch}
-          onClose={handleCloseModal}
-        >
-          <Voice></Voice>
-        </Modal>
-      )}
+      <Voice
+        transcript={transcript}
+        isSupport={browserSupportsSpeechRecognition}
+        listening={listening}
+      />
     </div>
   );
 }
