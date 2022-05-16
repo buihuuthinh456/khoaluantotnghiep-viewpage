@@ -27,14 +27,13 @@ function CategoryPage() {
   const [amount, setAmount] = useState(1);
   const [rating, setRating] = useState();
   const [table, setTable] = useState(null);
-  const [productRate, setProductRate] = useState(null);
+  const [productRate, setProductRate] = useState(0);
 
   const dispatch = useDispatch();
 
   const isLogin = useSelector(selectLogin).isLogin;
   const detailProduct = useSelector(selectDetailProduct).data;
   const isLoading = useSelector(selectDetailProduct).isLoading;
-  const voteMsg = useSelector(selectDetailProduct).voteMsg;
   const voteList = useSelector(selectDetailProduct).voting;
   // const msg = useSelector(selectVoting).msg
 
@@ -67,6 +66,8 @@ function CategoryPage() {
       }, 0);
       console.log("totalScore", totalScore);
       setProductRate(totalScore / voteList.length);
+    } else {
+      setProductRate(0);
     }
   }, [voteList]);
 
@@ -132,15 +133,15 @@ function CategoryPage() {
             </div>
             <div className={styles.productRate}>
               {console.log('totalRate', productRate)}
-              {productRate && <ReactStars
+              {!isNaN(productRate) && <ReactStars
                 count={5}
                 onChange={ratingChanged}
                 size={24}
                 activeColor="#ffd700"
-                value={productRate || 0}
+                value={isNaN(productRate) ? 0 : Number(productRate)}
                 edit = {false}
               />}
-              <span className={styles.productRateText}>{productRate ? productRate : 0} / 5.0</span>
+              {!isNaN(productRate) && <span className={styles.productRateText}>{productRate ? productRate : 0} / 5.0</span>}
             </div>
             <div className={styles.desc}>
               <h2>Description</h2>
