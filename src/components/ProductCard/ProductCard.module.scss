@@ -1,0 +1,104 @@
+@use '../../scss/' as *;
+
+.productItem {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #D8D8D8;
+    border-radius: 5px;
+    box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+    rgb(145 158 171 / 24%) 0px 20px 40px;
+}
+
+.imageWrapper {
+    width: 100%;
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    &:hover {
+        .productController {
+            opacity: 1;
+        }
+
+        >img {
+            transition: transform 250ms ease;
+            transform: scale(1.05);
+        }
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background-position: 25% 50%;
+    }
+
+    .productController {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: rgb(0,0,0,0.2);
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 300ms ease;
+
+        // &:hover {
+        //     transition: transform 250ms ease;
+        //     transform: scale(1.05);
+        // }
+
+        .productIcon {
+            margin: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            transition: all 250ms ease;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #e9f5f5;
+                transform: scale(1.1);
+              }
+        }
+    }
+}
+
+.productInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;    
+}
+
+.productName {
+    padding: 0 10px;
+    color: $text-color;
+    font-size: 1.6rem;
+    font-weight: 400;
+    text-decoration: none;
+    text-align: center;
+    margin: 8px 0 10px;
+}
+
+.productPrice {
+    padding: 0 10px;
+    color: $product-money;
+    font-size: 1.9rem;
+    font-weight: 400;
+    text-decoration: none;
+    margin-top: auto;
+    margin-bottom: 8px;
+}

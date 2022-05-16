@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 import CurrencyFormat from "../../functionJS";
+import ProductCard from "../../components/ProductCard";
 
 function Home() {
   const dispatch = useDispatch();
@@ -16,15 +17,13 @@ function Home() {
     console.log(homeState);
   }, []);
 
-  useEffect(()=>{
-    window.scrollTo(0, 0)
-  }, [])
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   if (homeState.isLoading)
     return (
       <div className={styles.loading}>
-        <Loading
-          size = {100}
-        ></Loading>
+        <Loading size={100}></Loading>
       </div>
     );
   return (
@@ -36,34 +35,14 @@ function Home() {
         <ul className={styles.productList}>
           {homeState.allProduct &&
             homeState.allProduct.map((item) => (
-              <li key={item._id} className={styles.productItem}>
-                <Link to={`/detail/${item._id}`} style={{ textDecoration: "none" }}>
-                  <div className={styles.imageWrapper}>
-                    <img
-                      key={item.images[0].public_id}
-                      src={item.images[0].url}
-                      alt="product"
-                    />
-                    <div className={styles.productController}>
-                      <div className={styles.productIcon}>
-                        <ManageAccountsIcon
-                          style={{ fontSize: "2rem", color: "#333" }}
-                        />
-                      </div>
-                      <div className={styles.productIcon}>
-                        <AddShoppingCartRoundedIcon
-                          style={{ fontSize: "2rem", color: "#333" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-
-                <div className={styles.productInfo}>
-                  <h3 className={styles.productName}>{item.name}</h3>
-                  <div className={styles.productPrice}>{CurrencyFormat(item.price)}</div>
-                </div>
-              </li>
+              <ProductCard
+                id={item._id}
+                img={item.images[0].url}
+                name={item.name}
+                price={item.price}
+                link={`/detail/${item._id}`}
+                imgKey = {item.images[0].public_id}
+              />
             ))}
         </ul>
       </div>
@@ -75,34 +54,14 @@ function Home() {
         <ul className={styles.productList}>
           {homeState.hotProduct &&
             homeState.hotProduct.map((item) => (
-              <li key={item._id} className={styles.productItem}>
-                <Link to={`/detail/${item._id}`} style={{ textDecoration: "none" }}>
-                  <div className={styles.imageWrapper}>
-                    <img
-                      key={item.images[0].public_id}
-                      src={item.images[0].url}
-                      alt="product"
-                    />
-                    <div className={styles.productController}>
-                      <div className={styles.productIcon}>
-                        <ManageAccountsIcon
-                          style={{ fontSize: "2rem", color: "#333" }}
-                        />
-                      </div>
-                      <div className={styles.productIcon}>
-                        <AddShoppingCartRoundedIcon
-                          style={{ fontSize: "2rem", color: "#333" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-
-                <div className={styles.productInfo}>
-                  <h3 className={styles.productName}>{item.name}</h3>
-                  <div className={styles.productPrice}>{CurrencyFormat(item.price)}</div>
-                </div>
-              </li>
+              <ProductCard
+                id={item._id}
+                img={item.images[0].url}
+                name={item.name}
+                price={item.price}
+                link={`/detail/${item._id}`}
+                imgKey = {item.images[0].public_id}
+              />
             ))}
         </ul>
       </div>
@@ -114,34 +73,14 @@ function Home() {
         <ul className={styles.productList}>
           {homeState.newProduct &&
             homeState.newProduct.map((item) => (
-              <li key={item._id} className={styles.productItem}>
-                <Link to={`/detail/${item._id}`} style={{ textDecoration: "none" }}>
-                  <div className={styles.imageWrapper}>
-                    <img
-                      key={item.images[0].public_id}
-                      src={item.images[0].url}
-                      alt="product"
-                    />
-                    <div className={styles.productController}>
-                      <div className={styles.productIcon}>
-                        <ManageAccountsIcon
-                          style={{ fontSize: "2rem", color: "#333" }}
-                        />
-                      </div>
-                      <div className={styles.productIcon}>
-                        <AddShoppingCartRoundedIcon
-                          style={{ fontSize: "2rem", color: "#333" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-
-                <div className={styles.productInfo}>
-                  <h3 className={styles.productName}>{item.name}</h3>
-                  <div className={styles.productPrice}>{CurrencyFormat(item.price)}</div>
-                </div>
-              </li>
+              <ProductCard
+                id={item._id}
+                img={item.images[0].url}
+                name={item.name}
+                price={item.price}
+                link={`/detail/${item._id}`}
+                imgKey = {item.images[0].public_id}
+              />
             ))}
         </ul>
       </div>

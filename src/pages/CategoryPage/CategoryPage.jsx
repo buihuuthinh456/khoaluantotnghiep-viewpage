@@ -10,6 +10,7 @@ import {
 
 import { Link, useParams, useSearchParams } from "react-router-dom";
 
+import ProductCard from "../../components/ProductCard";
 import Loading from "../../components/Loading/Loading";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
@@ -96,39 +97,14 @@ function CategoryPage() {
         <ul className={styles.productList}>
           {categoryPageState.products &&
             categoryPageState.products.map((item) => (
-              <li key={item._id} className={styles.productItem}>
-                <Link
-                  to={`/detail/${item._id}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  <div className={styles.imageWrapper}>
-                    <img
-                      key={item.images[0].public_id}
-                      src={item.images[0].url}
-                      alt="product"
-                    />
-                    <div className={styles.productController}>
-                      <div className={styles.productIcon}>
-                        <ManageAccountsIcon
-                          style={{ fontSize: "2rem", color: "#333" }}
-                        />
-                      </div>
-                      <div className={styles.productIcon}>
-                        <AddShoppingCartRoundedIcon
-                          style={{ fontSize: "2rem", color: "#333" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-
-                <div className={styles.productInfo}>
-                  <h3 className={styles.productName}>{item.name}</h3>
-                  <div className={styles.productPrice}>
-                    {CurrencyFormat(item.price)}
-                  </div>
-                </div>
-              </li>
+              <ProductCard
+                id={item._id}
+                img={item.images[0].url}
+                name={item.name}
+                price={item.price}
+                link={`/detail/${item._id}`}
+                imgKey = {item.images[0].public_id}
+              />
             ))}
         </ul>
 
