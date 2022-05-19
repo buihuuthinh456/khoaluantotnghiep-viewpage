@@ -11,6 +11,9 @@ import { Fade } from 'react-awesome-reveal'
 import Footer from '../../Footer/Footer'
 
 function DefaultLayout({ children }) {
+  
+
+
   return (
     <div>
         <div className={styles.userController}>

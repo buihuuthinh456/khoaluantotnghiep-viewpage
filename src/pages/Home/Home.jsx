@@ -3,10 +3,6 @@ import styles from "./home.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/Loading/Loading";
 import { selectHome, getHomeAsync } from "../../features/home/homeSlice";
-import { Link } from "react-router-dom";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
-import CurrencyFormat from "../../functionJS";
 import ProductCard from "../../components/ProductCard";
 
 function Home() {

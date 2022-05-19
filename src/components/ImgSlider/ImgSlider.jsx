@@ -1,8 +1,7 @@
 import React, {useEffect, useRef} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectHome, getTopicImgAsync } from '../../features/home/homeSlice'
-
-
+import { selectLogin } from '../../features/login/loginSlice'
 
 import styles from './imgSlider.module.scss'
 import Slider from "react-slick";
@@ -28,10 +27,11 @@ function ImgSlider() {
   let slider = useRef()
   const dispatch = useDispatch()
   const imgSlider = useSelector(selectHome).imgSlider
+  const userId = useSelector(selectLogin)
 
   useEffect(()=>{
-    dispatch(getTopicImgAsync())
-  }, [imgSlider])
+    dispatch(getTopicImgAsync(userId.info._id))
+  }, [imgSlider,userId.info._id])
 
   const settings = {
     dots: true,

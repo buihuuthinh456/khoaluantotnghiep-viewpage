@@ -2,6 +2,17 @@ import axios from "axios";
 
 const URL = "https://khoaluantotnghiep-ecommerce.herokuapp.com";
 
+
+// Post Data Analysis
+export const postDataAnalysis = (payload)=> 
+  axios({
+    method:"post",
+    url:`${URL}`,
+    data:{
+      userId:payload
+    }
+  })
+
 export const handleLoginUser = (payload) =>
   axios({
     method: "post",

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchHome, imgSlider } from "../../api";
+import { fetchHome, imgSlider, postDataAnalysis } from "../../api";
 
 const initialState = {
   isLoading: false,
@@ -17,11 +17,11 @@ export const getHomeAsync = createAsyncThunk("home/getHomeAsync", async () => {
 
 export const getTopicImgAsync = createAsyncThunk(
   "home/getTopicImgAsync",
-  async () => {
+  async (userId) => {
     try {
       if (localStorage.getItem("accessToken")) {
         const token = localStorage.getItem("accessToken");
-        const response = await imgSlider(token);
+        const response = await Promise.all([imgSlider(token),postDataAnalysis(userId)])
         return response;
       }
     } catch (error) {

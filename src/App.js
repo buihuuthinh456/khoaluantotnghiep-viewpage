@@ -1,24 +1,20 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { publicRoutes } from "./routers";
-import DefaultLayout from "./components/Layout/DefaultLayout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Navbar from "./components/Navbar/Navbar";
-import Routers from "./routers";
-import styles from "./app.module.scss";
-import UserController from "./components/UserController/UserController";
-import Footer from "./components/Footer/Footer";
-import Category from "./components/Category/Category";
-import ImgSlider from "./components/ImgSlider/ImgSlider";
-import { Fade } from "react-awesome-reveal";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SearchInput from "./components/SearchInput/SearchInput";
-import Button from "./components/Button/Button";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { getUserInfoAsync } from "./features/login/loginSlice";
+import { ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
+
+// Styles
+import styles from "./app.module.scss";
+
+
+
+// Compontn
+import DefaultLayout from "./components/Layout/DefaultLayout";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+// Others
+import { publicRoutes } from "./routers";
+import { getUserInfoAsync } from "./features/login/loginSlice";
 
 function App() {
   const dispatch = useDispatch();
