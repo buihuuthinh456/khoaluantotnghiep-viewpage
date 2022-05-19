@@ -22,7 +22,7 @@ import ReactStars from "react-rating-stars-component";
 import { selectLogin } from "../../features/login/loginSlice";
 import { toast } from "react-toastify";
 
-function CategoryPage() {
+function Detail() {
   const { productID } = useParams();
   const [amount, setAmount] = useState(1);
   const [rating, setRating] = useState();
@@ -203,4 +203,4 @@ function CategoryPage() {
   );
 }
 
-export default CategoryPage;
+export default Detail;
