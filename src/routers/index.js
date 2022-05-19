@@ -1,6 +1,6 @@
 
 import Home from '../pages/Home/Home';
-import Details from '../pages/Details/Detail'
+import Detail from '../pages/Details/Detail'
 import CategoryPage from '../pages/CategoryPage/CategoryPage';
 import Cart from '../pages/Cart/Cart';
 import Search from '../pages/Search/Search';
@@ -12,7 +12,7 @@ import PageNotFound from '../pages/PageNotFound';
 const publicRoutes = [
   {path: '/', component: Home },
   {path: '/category/:category', component: CategoryPage },
-  {path: '/detail/:productID', component: Details },
+  {path: '/detail/:productID', component: Detail },
   {path: '/cart', component: Cart },
   {path: '/search', component: Search},
   {path: '/checkout', component: Checkout, layout: HeaderOnly },

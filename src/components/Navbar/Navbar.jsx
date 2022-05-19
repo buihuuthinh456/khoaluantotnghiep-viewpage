@@ -94,7 +94,6 @@ function Navbar() {
     );
     navigate("/search");
   };
-
   return (
     <div className={styles.navbar}>
       <div className={styles.left}>
@@ -136,6 +135,7 @@ function Navbar() {
                 </div>
 
                 <ul className={styles.cartProductMenu}>
+                  {console.log("cartItem",cartItem)}
                   {cartItem.map((item) => (
                     <li className={styles.cartProductItem} key={item._id}>
                       <div className={styles.imgWrapper}>

@@ -5,6 +5,8 @@ import Loading from "../../components/Loading/Loading";
 import { selectHome, getHomeAsync } from "../../features/home/homeSlice";
 import ProductCard from "../../components/ProductCard";
 
+import {Helmet} from 'react-helmet'
+
 function Home() {
   const dispatch = useDispatch();
   const homeState = useSelector(selectHome);
@@ -24,6 +26,10 @@ function Home() {
     );
   return (
     <div className={styles.container}>
+      <Helmet>
+          <title>Home Page TShop IC</title>
+          <meta name="description" content="home page Tshop IC" />
+      </Helmet>
       <div className={styles.allProduct}>
         <div className={styles.title}>
           <h3>All Products</h3>

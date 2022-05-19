@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
+import {Helmet} from 'react-helmet';
 
 // Styles
 import styles from "./app.module.scss";
@@ -44,6 +45,11 @@ function App() {
   return (
     <div className={styles.app}>
       <BrowserRouter>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>TShopIC</title>
+          <link rel="canonical" href="http://tshopic.netlify.app" />
+        </Helmet>
         <div className={styles.app}>
           <Routes>
             {publicRoutes.map((route, index) => {
