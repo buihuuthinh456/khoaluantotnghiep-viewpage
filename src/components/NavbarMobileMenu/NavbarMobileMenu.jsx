@@ -53,7 +53,7 @@ function NavbarMobileMenu() {
           {data &&
             data.map((item, index) => (
               <li key={item._id} className={styles.menuItem}>
-                <Link to={`/${item.name}`} className={styles.menuItemLink}>
+                <Link to={`/category/${item.name}`} className={styles.menuItemLink}>
                   {item.name}
                 </Link>
               </li>

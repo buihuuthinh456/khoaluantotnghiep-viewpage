@@ -13,7 +13,3 @@ body {
   font-size: 1.6rem;
 }
 
-:root {
-  --userController-height: 40px;
-  --navbar-height: 75px;
-}
