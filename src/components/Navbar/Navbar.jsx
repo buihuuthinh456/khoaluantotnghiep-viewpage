@@ -30,7 +30,6 @@ import Voice from "../Voice";
 import Modal from "@mui/material/Modal";
 
 import CurrencyFormat from "../../functionJS";
-
 function Navbar() {
   // redux
   const navigate = useNavigate();
@@ -70,7 +69,7 @@ function Navbar() {
   };
 
   const handleListen = () => {
-    SpeechRecognition.startListening();
+    SpeechRecognition.startListening({language:'vi-VN'});
   };
 
   useEffect(()=>{
