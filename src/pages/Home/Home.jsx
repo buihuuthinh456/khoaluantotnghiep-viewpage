@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/Loading/Loading";
 import { selectHome, getHomeAsync } from "../../features/home/homeSlice";
 import ProductCard from "../../components/ProductCard";
+import { Helmet } from "react-helmet";
 
-import {Helmet} from 'react-helmet'
+
+import Button from '@mui/material/Button';
 
 function Home() {
   const dispatch = useDispatch();
@@ -27,61 +29,71 @@ function Home() {
   return (
     <div className={styles.container}>
       <Helmet>
-          <title>Home Page TShop IC</title>
-          <meta name="description" content="home page Tshop IC" />
+        <title>Home Page TShop IC</title>
+        <meta name="description" content="home page Tshop IC" />
       </Helmet>
       <div className={styles.allProduct}>
         <div className={styles.title}>
-          <h3>All Products</h3>
+          <h3>Tất cả sản phẩm</h3>
         </div>
         <ul className={styles.productList}>
           {homeState.allProduct &&
-            homeState.allProduct.map((item) => (
+            homeState.allProduct.map((item, index) => (
               <ProductCard
+                key={item._id}
                 id={item._id}
                 img={item.images[0].url}
                 name={item.name}
                 price={item.price}
                 link={`/detail/${item._id}`}
-                imgKey = {item.images[0].public_id}
+                imgKey={item.images[0].public_id}
               />
             ))}
         </ul>
+        <div className={styles.viewMore}>
+          <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 3, mb: 2, fontSize:"1.3rem" }}
+              >
+                Xem tất cả
+          </Button>
+        </div>
       </div>
-
       <div className={styles.hotProducts}>
         <div className={styles.title}>
-          <h3>Hot Products</h3>
+          <h3>Sản phẩm bán chạy</h3>
         </div>
         <ul className={styles.productList}>
           {homeState.hotProduct &&
             homeState.hotProduct.map((item) => (
               <ProductCard
+                key={item._id}
                 id={item._id}
                 img={item.images[0].url}
                 name={item.name}
                 price={item.price}
                 link={`/detail/${item._id}`}
-                imgKey = {item.images[0].public_id}
+                imgKey={item.images[0].public_id}
               />
             ))}
         </ul>
       </div>
-
       <div className={styles.newProducts}>
         <div className={styles.title}>
-          <h3>New Products</h3>
+          <h3>Sản phẩm mới</h3>
         </div>
         <ul className={styles.productList}>
           {homeState.newProduct &&
             homeState.newProduct.map((item) => (
               <ProductCard
+                key={item._id}
                 id={item._id}
                 img={item.images[0].url}
                 name={item.name}
                 price={item.price}
                 link={`/detail/${item._id}`}
-                imgKey = {item.images[0].public_id}
+                imgKey={item.images[0].public_id}
               />
             ))}
         </ul>

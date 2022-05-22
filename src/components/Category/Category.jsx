@@ -30,7 +30,7 @@ function Category() {
             <div className={styles.titleIcon}>
                 <MenuIcon style={{fontSize: '2rem'}}/>
             </div>
-            <span>Category</span>
+            <span>Phân loại</span>
         </div>
         <ul className={styles.list}>
             <Reveal

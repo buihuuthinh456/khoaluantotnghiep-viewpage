@@ -21,6 +21,7 @@ import CurrencyFormat from "../../functionJS";
 import ReactStars from "react-rating-stars-component";
 import { selectLogin } from "../../features/login/loginSlice";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 function Detail() {
   const { productID } = useParams();
@@ -114,6 +115,10 @@ function Detail() {
 
   return (
     <>
+      <Helmet>
+        <title>{detailProduct?detailProduct.name:"Detail Product Page"}</title>
+        <meta name="description" content={detailProduct?detailProduct.name:"Detail Product Page"} />
+      </Helmet>
       <div className={styles.back}>
         <Link to={`/`}>Back</Link>
       </div>

@@ -37,6 +37,7 @@ function Navbar() {
   const userPersonalCart = useSelector(selectLogin).cart;
   const searchState = useSelector(selectSearch);
   const userCart = useSelector(selectCart);
+  const accessToken = localStorage.getItem("accessToken");
 
   const [searchParam, setSearchParam] = useSearchParams();
 
@@ -55,8 +56,10 @@ function Navbar() {
   } = useSpeechRecognition();
 
   useEffect(() => {
-    dispatch(getCartAsync());
-  }, []);
+    if(accessToken){
+      dispatch(getCartAsync());
+    }
+  }, [accessToken]);
 
   useEffect(() => {
     setCartAmount(userCart.cartTotalItem);
@@ -107,7 +110,7 @@ function Navbar() {
         <SearchInput
           width={"100%"}
           height={"40px"}
-          placeholder="Search..."
+          placeholder="Tìm kiếm..."
           onChange={(e) => setSearchInput(e.target.value)}
         />
         <Button variant="contained" size="small" onClick={handleSearch}>

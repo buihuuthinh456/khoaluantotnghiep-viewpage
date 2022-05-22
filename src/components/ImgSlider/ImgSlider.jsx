@@ -64,7 +64,7 @@ function ImgSlider() {
                 <img src="//bizweb.dktcdn.net/100/190/540/themes/510789/assets/slide-img3.jpg?1649728473586" alt="slider" />
             </div>
             <div className={styles.item}>
-                <img src="//bizweb.dktcdn.net/100/190/540/themes/510789/assets/slide-img3.jpg?1649728473586" alt="slider" />
+                <img src="https://img.freepik.com/free-vector/e-commerce-icon-robotic-hand-internet-shopping-online-purchase-add-cart_127544-586.jpg?w=2000" alt="slider" />
             </div>
           </Slider>
             <Button

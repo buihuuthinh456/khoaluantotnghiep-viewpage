@@ -1,8 +1,8 @@
 @use "../../scss/" as *;
 
 .container {
-  width: 500px;
-  height: 90vh;
+  max-width: 800px;
+  height: 95vh;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -35,6 +35,15 @@
 
 .form {
     width: 100%;
+    display: flex;
+    @include tablet{
+      display: block;
+    }
+
+    @include mobile{
+      display: block;
+
+    }
 }
 
 .field {
@@ -73,6 +82,20 @@
     font-size: 1.6rem;
     margin-top: 8px;
     text-align: center;
+}
+
+
+.containerFiel{
+  flex:3
+}
+
+.containerSubmit{
+  margin-left: 24px;
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center ;
 }
 
 

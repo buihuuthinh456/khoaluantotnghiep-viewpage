@@ -19,9 +19,9 @@ export const handleLoginAsync = createAsyncThunk(
       const response = await toast.promise(
         handleLoginUser(payload),
         {
-          pending: "Login is handling",
-          success: "Login successfull 👌",
-          error: "Login error 🤯",
+          pending: "Vui lòng đợi trong giây lát",
+          success: "Đăng nhập thành công👌",
+          error: "Đăng nhập thất bại🤯",
         },
         {
           style: { fontSize: "1.6rem" },
@@ -47,6 +47,7 @@ export const getUserInfoAsync = createAsyncThunk(
       const response = await getUserInfo();
       return response.data;
     } catch (error) {
+      localStorage.removeItem("accessToken");
       toast.error(error.response.data.msg, {
         position: toast.POSITION.TOP_RIGHT,
         style: { fontSize: "1.6rem" },
@@ -61,6 +62,10 @@ export const loginSlice = createSlice({
   reducers: {
     logOut: (state) => {
       localStorage.removeItem("accessToken");
+      toast.success("Đăng xuất thành công", {
+        position: toast.POSITION.TOP_RIGHT,
+        style: { fontSize: "1.6rem" },
+      });
       return (state = initialState);
     },
   },
@@ -77,6 +82,7 @@ export const loginSlice = createSlice({
     builder.addCase(getUserInfoAsync.fulfilled, (state, action) => {
       if (action.payload.data?.errorExpiredAt) {
         localStorage.removeItem("accessToken");
+        console.log(localStorage.getItem("accessToken"))
         return (state = initialState);
       } else {
         const { accessToken, isAdmin, ...info } = action.payload;
@@ -85,6 +91,10 @@ export const loginSlice = createSlice({
         state.info = { ...info };
         state.cart = state.info.cart;
         state.isAdmin = isAdmin;
+        toast.success("Tự động đăng nhập thành công", {
+          position: toast.POSITION.TOP_RIGHT,
+          style: { fontSize: "1.6rem" },
+        });
       }
     });
   },

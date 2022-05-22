@@ -85,6 +85,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+
+  @include tablet {
+    flex-direction: column;
+  }
+  @include mobile {
+    flex-direction: column;
+  }
 }
 
 .forgotPass {

@@ -39,7 +39,10 @@ function App() {
   });
 
   useEffect(() => {
-    dispatch(getUserInfoAsync());
+      console.log("AccessToken",accessToken)
+      if(accessToken){
+        dispatch(getUserInfoAsync());
+      }
   }, [accessToken]);
 
   return (

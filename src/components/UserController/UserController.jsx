@@ -46,25 +46,25 @@ function UserController() {
             className={styles.register}
             onClick={() => dispatch(openRegisterModal())}
           >
-            <span>Register</span>
+            <span>Đăng ký</span>
             <RegisterIcon />
           </div>
           <div
             className={styles.login}
             onClick={() => dispatch(openLoginModal())}
           >
-            <span>Login</span>
+            <span>Đăng nhập</span>
             <UserIcon />
           </div>
         </div>
       ) : (
         <div className={styles.userController}>
           <div className={styles.register}>
-            <span>Help</span>
+            <span>Trợ giúp</span>
             <HelpIconCustom />
           </div>
           <div className={styles.login} onClick={() => dispatch(logOut())}>
-            <span>Logout</span>
+            <span>Đăng xuất</span>
             <LogOutIconCustom />
           </div>
         </div>

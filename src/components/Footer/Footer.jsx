@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../Button/Button'
 import SearchInput from '../SearchInput/SearchInput'
@@ -7,7 +7,22 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
+import Modal from "../Modal/Modal";
+import Register from "../Register/Register";
+
+import { useSelector, useDispatch } from "react-redux";
+
+import {
+    selectModal,
+    openRegisterModal,
+    closeRegisterModal,
+  } from "../../features/modal/modalSlice";
+
 function Footer() {
+
+    const modalState = useSelector(selectModal);
+    const dispatch = useDispatch();
+    const [value,setValue] = useState(null)
   return (
     <div className={styles.footer}>
         <div className={styles.wrapper}>
@@ -20,51 +35,56 @@ function Footer() {
                         type = 'text' 
                         width = '80%'
                         height = '45px'
-                        placeholder = 'Enter Email Address'
+                        placeholder = 'Nhập Email'
+                        value={value}
+                        onChange={(e)=>{setValue(e.target.value)}}
                     />
                     <Button
                         color = 'white'
                         bgColor = '#1E90FF'
                         width = '120px'
                         margin = '0 4px'
+                        onClick={(e) => {
+                            dispatch(openRegisterModal(value))
+                        }}
                     >
-                    Sign Up
+                    Đăng ký
                     </Button>
                 </div>
                 <Link to='/' className={styles.contactInfo}>
-                    Contact Info
+                    Thông tin về chúng tôi
                 </Link>
             </div>
             <div className={styles.right}>
                 <div className={styles.categories}>
                     <div className={styles.title}>
-                        <h3>Catagories</h3>
+                        <h3>Sản phẩm</h3>
                     </div>
 
                     <ul className={styles.list}>
                         <li className={styles.item}>
                             <Link to='/' className={styles.itemLink} style={{textDecoration: 'none'}}>
-                                Laptop & Computer
+                                Điện trở, tụ điện các loại
                             </Link>
                         </li>
                         <li className={styles.item}>
                             <Link to='/' className={styles.itemLink}>
-                                Cameras & Photography
+                                Các dòng IC nhỏ, vừa, lớn
                             </Link>
                         </li>
                         <li className={styles.item}>
                             <Link to='/' className={styles.itemLink}>
-                                Smart Phones & Tablets
+                                Các dòng Raspberry
                             </Link>
                         </li>
                         <li className={styles.item}>
                             <Link to='/' className={styles.itemLink}>
-                                Video Games & Consoles
+                                Arduino các loại
                             </Link>
                         </li>
                         <li className={styles.item}>
                             <Link to='/' className={styles.itemLink}>
-                                Waterproof Headphones
+                                Các dòng vi điều khiển khác
                             </Link>
                         </li>
                     </ul>
@@ -72,59 +92,59 @@ function Footer() {
 
                 <div className={styles.customCare}>
                     <div className={styles.title}>
-                        <h3>Custom Care</h3>
+                        <h3>Hỗ Trợ</h3>
                     </div>
 
                     <ul className={styles.list}>
                         <li className={styles.item}>
                             <Link to='/' className={styles.itemLink} style={{textDecoration: 'none'}}>
-                                My Account
+                                Thanh toán trực tiếp
                             </Link>
                         </li>
                         <li className={styles.item}>
                             <Link to='/' className={styles.itemLink}>
-                                Discount
+                                Có hỗ trợ MoMo
                             </Link>
                         </li>
                         <li className={styles.item}>
                             <Link to='/' className={styles.itemLink}>
-                                Return
+                                Hoàn trả hàng trong 48h
                             </Link>
                         </li>
                         <li className={styles.item}>
                             <Link to='/' className={styles.itemLink}>
-                                Order History
+                                Ưu đãi khách hàng thân thiết
                             </Link>
                         </li>
-                        <li className={styles.item}>
+                        {/* <li className={styles.item}>
                             <Link to='/' className={styles.itemLink}>
                                 Order Tracking
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
                 <div className={styles.pages}>
                     <div className={styles.title}>
-                            <h3>Pages</h3>
+                            <h3>Dịch vụ</h3>
                         </div>
 
                         <ul className={styles.list}>
                             <li className={styles.item}>
                                 <Link to='/' className={styles.itemLink} style={{textDecoration: 'none'}}>
-                                    Blog
+                                    Hàng có tem chống giả
                                 </Link>
                             </li>
                             <li className={styles.item}>
                                 <Link to='/' className={styles.itemLink}>
-                                    Category
+                                    Cam kết giữ bí mật thông tin
                                 </Link>
                             </li>
                             <li className={styles.item}>
                                 <Link to='/' className={styles.itemLink}>
-                                    Pre-Built Pages
+                                    Vận chuyển nhanh chóng
                                 </Link>
                             </li>
-                            <li className={styles.item}>
+                            {/* <li className={styles.item}>
                                 <Link to='/' className={styles.itemLink}>
                                     Visual Composer Elements
                                 </Link>
@@ -133,7 +153,7 @@ function Footer() {
                                 <Link to='/' className={styles.itemLink}>
                                     WooCommerce Pages
                                 </Link>
-                            </li>
+                            </li> */}
                         </ul>
                 </div>
             </div>

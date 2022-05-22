@@ -24,7 +24,7 @@ function Voice({ transcript, isSupport, listening}) {
       {listening && (
         <div className={styles.container}>
           <div className={styles.body}>
-            <h1>Listening...</h1>
+            <h1>Hãy nói từ khóa bạn đang muốn tìm kiếm...</h1>
             {listening ? <KeyboardVoiceIcon /> : <MicOffIcon />}
             <p>{transcript}</p>
           </div>

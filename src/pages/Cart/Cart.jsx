@@ -9,7 +9,11 @@ import {
   selectLogin,
   deleteProduct,
 } from "../../features/login/loginSlice";
-import { selectCart, deleteItemCartAsync, getCartAsync, increaseQuantity, decreaseQuantity, productTotalMoney } from "../../features/cart/cartSlice";
+import { selectCart, deleteItemCartAsync,
+   getCartAsync, increaseQuantity,
+    decreaseQuantity, productTotalMoney } from "../../features/cart/cartSlice";
+
+import { newCartAsync } from "../../features/cart/cartSlice";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import BuyProducts from "../../components/BuyProducts/BuyProducts";
@@ -35,8 +39,9 @@ function Cart() {
     setCartItem(userCart.cartItem);
   }, [userCart.cartTotalItem, userCart.cartItem]);
 
-  const handleBuy = async() => {
-    await dispatch(productTotalMoney())
+  const handleBuy = () => {
+    dispatch(productTotalMoney())
+    dispatch(newCartAsync(userCart.cartItem))
     navigate('/checkout')
   }
 

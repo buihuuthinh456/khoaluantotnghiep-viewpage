@@ -48,7 +48,7 @@ function Login() {
 
   return (
     <div className={styles.container} onClick={(e) => e.stopPropagation()}>
-      <h1 className={styles.header}>Login</h1>
+      <h1 className={styles.header}>Đăng Nhập</h1>
 
       <div className={styles.close} onClick={(e) => handleCloseLogin(e)}>
         <CloseIcon />
@@ -61,7 +61,7 @@ function Login() {
         }}
         validationSchema={Yup.object({
           email: Yup.string()
-            .email("Invalid email address")
+            .email("Email không hợp lệ")
             .required("Thông tin này bắt buộc phải có"),
           password: Yup.string().required("Thông tin này bắt buộc phải có"),
         })}
@@ -143,7 +143,7 @@ function Login() {
                 fullWidth
                 type="password"
                 id="email"
-                label="Password"
+                label="Mật khẩu"
                 size="large"
                 {...formik.getFieldProps("password")}
               />
@@ -159,7 +159,7 @@ function Login() {
                   event.preventDefault();
                 }}
               >
-                Sign In
+                Đăng nhập
               </Button>
             </div>
 

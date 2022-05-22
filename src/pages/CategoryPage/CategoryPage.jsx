@@ -27,7 +27,7 @@ function CategoryPage() {
   const categoryPageState = useSelector(selectCategoryPage);
 
   const [searchParam, setSearchParam] = useSearchParams();
-  const [filter, setFilter] = useState();
+  const [filter, setFilter] = useState("createdAt");
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState({
     sort: null,
@@ -76,7 +76,7 @@ function CategoryPage() {
     <>
       <div className={styles.filter}>
         <FormControl>
-          <InputLabel id="filter-data">Sắp xếp</InputLabel>
+          <InputLabel id="filter-data">Sắp xếp</InputLabel>
           <Select
             labelId="filter-data"
             id="demo-simple-select"
@@ -84,7 +84,7 @@ function CategoryPage() {
             label="Filter"
             onChange={handleChangeFilter}
           >
-            <MenuItem value={""}>Mặc định</MenuItem>
+            <MenuItem value={"createdAt"}>Theo ngày đăng</MenuItem>
             <MenuItem value={"price"}>Giá tăng dần</MenuItem>
             <MenuItem value={"-price"}>Giá giảm dần</MenuItem>
           </Select>

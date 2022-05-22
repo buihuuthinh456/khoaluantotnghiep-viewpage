@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addItemCart, getUserInfo, deleteItemCart } from '../../api'
+import { addItemCart, getUserInfo, deleteItemCart,newCart } from '../../api'
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -14,6 +14,7 @@ export const getCartAsync = createAsyncThunk('cart/getCartAsync', async()=>{
     const response = await(getUserInfo())
     return response.data;
   } catch (error) {
+    localStorage.removeItem("accessToken")
     toast.error(error.response.data.msg, {
       position: toast.POSITION.TOP_RIGHT,
       style: { fontSize: "1.6rem" },
@@ -31,6 +32,32 @@ export const addItemCartAsync = createAsyncThunk('cart/addItemCartAsync', async(
             pending: "addItem is handling",
             success: "addItem successfull 👌",
             error: "addItem error 🤯",
+          },
+          {
+            style: { fontSize: "1.6rem" },
+          }
+        );
+        return response
+    }
+  } catch (error) {
+    console.log(error.response)
+    toast.error(error.response.data.msg, {
+      position: toast.POSITION.TOP_RIGHT,
+      style: { fontSize: "1.6rem" },
+    });
+  }
+})
+
+export const newCartAsync = createAsyncThunk('cart/newCartAsync', async(payload)=>{
+  try {
+    if (localStorage.getItem('accessToken')) {
+        const token = localStorage.getItem('accessToken')
+        const response = await toast.promise(
+          newCart(payload, token),
+          {
+            pending: "newCart is handling",
+            success: "newCart successfull 👌",
+            error: "newCart error 🤯",
           },
           {
             style: { fontSize: "1.6rem" },
@@ -114,11 +141,20 @@ export const cartSlice = createSlice({
       state.cartTotalItem = cart.length
     })
 
+    builder.addCase(newCartAsync.fulfilled, (state,action)=>{
+      console.log('newCartAsync', action.payload);
+      const {cart} = action.payload.data
+      state.cartItem = cart
+      state.cartTotalItem = cart.length
+    })
+
     builder.addCase(deleteItemCartAsync.fulfilled, (state,action)=>{
       const {cart} = action.payload.data
       state.cartItem = cart
       state.cartTotalItem = cart.length
     })
+
+
   }
 });
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const URL = "https://khoaluantotnghiep-ecommerce.herokuapp.com";
+// const URL = "https://khoaluantotnghiep-ecommerce.herokuapp.com";
+const URL = "http://localhost:5000"
 
 
 // Post Data Analysis
@@ -107,6 +108,15 @@ export const getUserInfo = () => {
 export const addItemCart = (payload, token) => {
   return axios({
     method: 'put',  
+    url: `${URL}/user/cart`,
+    headers: { Authorization:token },
+    data: payload,
+  })
+}
+
+export const newCart = (payload, token) => {
+  return axios({
+    method: 'post',  
     url: `${URL}/user/cart`,
     headers: { Authorization:token },
     data: payload,

@@ -19,6 +19,7 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
     &:hover {
         .productController {
             opacity: 1;
@@ -75,12 +76,12 @@
         }
     }
 }
-
 .productInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;  
+    flex-grow: 1;
 }
 
 .productName {
