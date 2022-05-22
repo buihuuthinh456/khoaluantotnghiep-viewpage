@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const URL = "https://khoaluantotnghiep-ecommerce.herokuapp.com";
-const URL = "http://localhost:5000"
+const URL = "https://khoaluantotnghiep-ecommerce.herokuapp.com";
+// const URL = "http://localhost:5000"
 
 
 // Post Data Analysis
