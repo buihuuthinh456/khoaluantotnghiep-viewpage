@@ -6,12 +6,15 @@ import { selectHome, getHomeAsync } from "../../features/home/homeSlice";
 import ProductCard from "../../components/ProductCard";
 import { Helmet } from "react-helmet";
 
+import { useNavigate } from "react-router-dom";
+
 
 import Button from '@mui/material/Button';
 
 function Home() {
   const dispatch = useDispatch();
   const homeState = useSelector(selectHome);
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getHomeAsync());
     console.log(homeState);
@@ -55,7 +58,8 @@ function Home() {
                 type="button"
                 variant="contained"
                 sx={{ mt: 3, mb: 2, fontSize:"1.3rem" }}
-              >
+                onClick={()=>navigate("/category/all")}
+          >
                 Xem tất cả
           </Button>
         </div>

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addItemCart, getUserInfo, deleteItemCart,newCart } from '../../api'
+import { addItemCart, getUserInfo, deleteItemCart,newCart, getDetailProduct } from '../../api'
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -29,15 +29,61 @@ export const addItemCartAsync = createAsyncThunk('cart/addItemCartAsync', async(
         const response = await toast.promise(
           addItemCart(payload, token),
           {
-            pending: "addItem is handling",
-            success: "addItem successfull 👌",
-            error: "addItem error 🤯",
+            pending: "Hệ thống đang xử lý",
+            success: "Thêm vào giỏ hàng thành công👌",
+            error: "Đã xảy ra lỗi🤯",
           },
           {
             style: { fontSize: "1.6rem" },
           }
         );
         return response
+    }
+  } catch (error) {
+    console.log(error.response)
+    toast.error(error.response.data.msg, {
+      position: toast.POSITION.TOP_RIGHT,
+      style: { fontSize: "1.6rem" },
+    });
+  }
+})
+
+export const addOneItemCartAsync = createAsyncThunk('cart/addOneItemCartAsync', async(payload)=>{
+  try {
+    if (localStorage.getItem('accessToken')) {
+        const token = localStorage.getItem('accessToken')
+        console.log(payload)
+        const product = await toast.promise(
+          getDetailProduct(payload._id),
+          {pending:"Vui lòng đợi trong giây lát"},
+          {
+            style: { fontSize: "1.6rem" },
+          }
+        )
+        const item = {
+          ...product.data,...payload
+        }
+        if(product.status===200){
+          const response = await toast.promise(
+            addItemCart(item, token),
+            {
+              pending: "Hệ thống đang xử lý",
+              success: "Thêm sản phẩm thành công 👌",
+              error: "Đã xảy ra lỗi, vui lòng thử lại 🤯",
+            },
+            {
+              style: { fontSize: "1.6rem" },
+            }
+          );
+          return response
+        }
+        return product
+    }
+    else{
+      toast.error("Vui lòng đăng nhập để mua hàng", {
+        position: toast.POSITION.TOP_RIGHT,
+        style: { fontSize: "1.6rem" },
+      });
     }
   } catch (error) {
     console.log(error.response)
@@ -55,9 +101,9 @@ export const newCartAsync = createAsyncThunk('cart/newCartAsync', async(payload)
         const response = await toast.promise(
           newCart(payload, token),
           {
-            pending: "newCart is handling",
-            success: "newCart successfull 👌",
-            error: "newCart error 🤯",
+            pending: "Hệ thống đang xử lý",
+            success: "Giỏ hàng cập nhật thành công👌",
+            error: "Đã xảy ra lỗi, vui lòng kiểm tra lại 🤯",
           },
           {
             style: { fontSize: "1.6rem" },
@@ -136,6 +182,13 @@ export const cartSlice = createSlice({
 
     builder.addCase(addItemCartAsync.fulfilled, (state,action)=>{
       console.log('addItemCartAsync', action.payload);
+      const {cart} = action.payload.data
+      state.cartItem = cart
+      state.cartTotalItem = cart.length
+    })
+
+    builder.addCase(addOneItemCartAsync.fulfilled, (state,action)=>{
+      console.log('addOneItemCartAsync', action.payload);
       const {cart} = action.payload.data
       state.cartItem = cart
       state.cartTotalItem = cart.length

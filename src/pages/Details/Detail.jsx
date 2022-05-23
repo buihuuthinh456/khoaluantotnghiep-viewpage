@@ -149,7 +149,7 @@ function Detail() {
               {!isNaN(productRate) && <span className={styles.productRateText}>{productRate ? productRate : 0} / 5.0</span>}
             </div>
             <div className={styles.desc}>
-              <h2>Description</h2>
+              <h2>Mô tả sản phẩm</h2>
               <span>{detailProduct.description}</span>
             </div>
             <div className={styles.productController}>
@@ -180,7 +180,7 @@ function Detail() {
 
               <div className={styles.buttonAdd}>
                 <Button variant="contained" onClick={handleAddProduct}>
-                  Add to cart
+                  Thêm vào giỏ hàng
                 </Button>
               </div>
             </div>

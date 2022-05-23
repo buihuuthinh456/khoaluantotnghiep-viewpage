@@ -46,11 +46,13 @@ export const fetchCategories = () =>
     url: `${URL}/api/category`,
   });
 
-export const fetchSpecificProduct = (category) =>
-  axios({
+export const fetchSpecificProduct = (category) =>{
+  return axios({
     method: "get",
     url: `${URL}/page/${category}`,
   });
+}
+  
 
 export const searchProductsWithName = (query) => {
   const searchParam = new URLSearchParams(query).toString()

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams, useSearchParams,useNavigate } from "react-router-dom";
-import {selectCart,addItemCartAsync} from '../../features/cart/cartSlice'
+import {selectCart,addItemCartAsync,addOneItemCartAsync} from '../../features/cart/cartSlice'
 
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded'
@@ -9,9 +9,14 @@ import styles from "./ProductCard.module.scss";
 import CurrencyFormat from "../../functionJS";
 
 import { Fade, Reveal} from 'react-awesome-reveal';
+import { useDispatch,useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 
 function ProductCard({ id, img, name, price, link = `/detail/${id}` }, imgKey) {
+
+  const dispatch = useDispatch();
+  const cart = useSelector(selectCart);
 
   const handleAddItemIntoCart = (e) => {
     e.stopPropagation();
@@ -20,7 +25,16 @@ function ProductCard({ id, img, name, price, link = `/detail/${id}` }, imgKey) {
       quantity: 1,
       totalMoney: price,
     };
-    console.log(dataSend)
+    const isExist = cart.cartItem.some((item)=>dataSend._id===item._id)
+    if(isExist){
+      toast.warning("Sản phẩm đã có trong giỏ hàng vui lòng kiểm tra lại",{
+        style:{
+          fontSize:"1.6rem"
+        }
+      })
+    }else{
+      dispatch(addOneItemCartAsync(dataSend))
+    }
   }
   const navigate = useNavigate();
 

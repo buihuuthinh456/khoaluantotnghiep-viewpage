@@ -30,6 +30,7 @@ function Checkout() {
   const payURL = useSelector(selectPayment);
   const [selector, setSelector] = useState();
   const [address, setAddress] = useState();
+  const [phone, setPhone] = useState();
 
   const handleChange = (e) => {
     setSelector(e.target.value);
@@ -37,6 +38,10 @@ function Checkout() {
 
   const handleAddress = (e) => {
     setAddress(e.target.value);
+  };
+
+  const handlePhone = (e) => {
+    setPhone(e.target.value);
   };
 
   const handleSubmit = () => {
@@ -51,8 +56,8 @@ function Checkout() {
       default:
         console.log("select type");
     }
-    if (address) {
-      const addressSend = address;
+    if (address&&phone) {
+      const addressSend = `${phone}, ${address}`;
       const dataPost = {
         type: type,
         amount: totalMoney,
@@ -60,12 +65,25 @@ function Checkout() {
         address: addressSend,
       };
       dispatch(paymentAsync(dataPost));
-    } else {
+    }
+    else if(!address&&!phone){
+      toast.error("Vui Lòng nhập đủ thông tin", {
+        position: toast.POSITION.TOP_RIGHT,
+        style: { fontSize: "1.6rem" },
+      });
+    } 
+    else if(!address) {
       toast.error("Vui Lòng nhập địa chỉ", {
         position: toast.POSITION.TOP_RIGHT,
         style: { fontSize: "1.6rem" },
       });
+    }else{
+      toast.error("Vui Lòng nhập số điện thoại của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+        style: { fontSize: "1.6rem" },
+      });
     }
+
   };
 
   if (payURL.payURL) {
@@ -143,12 +161,23 @@ function Checkout() {
             <div className={styles.address}>
               <TextField
                 id="cash-address"
-                label="Enter your address"
+                label="Nhập địa chỉ của bạn"
                 variant="outlined"
                 required
                 fullWidth
                 value={address}
                 onChange={handleAddress}
+                sx={{marginBottom:"1.2rem"}}
+              />
+
+              <TextField
+                id="cash-phone"
+                label="Số điện thoại của bạn"
+                variant="outlined"
+                required
+                fullWidth
+                value={phone}
+                onChange={handlePhone}
               />
             </div>
           )}

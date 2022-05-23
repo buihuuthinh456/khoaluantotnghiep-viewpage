@@ -16,7 +16,6 @@ function Category() {
     useEffect(()=>{
         dispatch(getCategoriesAsync())
     }, [])
-
     const data = categoryState.categories
 
     if (categoryState.isLoading) return (
@@ -38,14 +37,28 @@ function Category() {
                 triggerOnce={true}
                 duration={500}
             >
-                {data && data.map((item, index) => (
-                    <li key={index} className={styles.item}>
-                        <Link to={`/category/${item.name}`} className={styles.itemLink}>
-                            <ArrowForwardIosIcon style={{fontSize: '1.6rem', color: '#333'}}/>
-                            <span>{item.name}</span>
-                        </Link>
-                    </li>
-                ))}
+                <li className={styles.item}>
+                    <Link to="/category/all" className={styles.itemLink}>
+                        <ArrowForwardIosIcon style={{fontSize: '1.6rem', color: '#333'}}/>
+                        <span>Toàn bộ</span>
+                    </Link>
+                </li>
+            </Reveal>
+            <Reveal
+                cascade= {true}
+                triggerOnce={true}
+                duration={500}
+            >
+                {data && data.map((item, index) => {
+                    return (
+                        <li key={index} className={styles.item}>
+                            <Link to={`/category/${item.name}`} className={styles.itemLink}>
+                                <ArrowForwardIosIcon style={{fontSize: '1.6rem', color: '#333'}}/>
+                                <span>{item.name}</span>
+                            </Link>
+                        </li>
+                    )
+                })}
             </Reveal>
         </ul>
     </div>

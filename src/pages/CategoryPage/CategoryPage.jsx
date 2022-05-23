@@ -34,14 +34,15 @@ function CategoryPage() {
     page: page,
     "category[regex]": category
   });
+  
  
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 200);
     setSearchParam(query);
   }, []);
 
   useEffect(() => {
-    dispatch(categoryPageAsync(category));
+      dispatch(categoryPageAsync(category));
   }, [category]);
 
 
@@ -53,6 +54,8 @@ function CategoryPage() {
       dispatch(sortPriceAsync(param))
       return param
     })
+    window.scrollTo(0, 200);
+
   };
 
   const handleChangePage = (event, value) => {
@@ -63,6 +66,8 @@ function CategoryPage() {
       dispatch(paginationAsync(param))
       return param
     })
+    window.scrollTo(0, 200);
+
   };
 
   if (categoryPageState.isLoading)
@@ -74,7 +79,7 @@ function CategoryPage() {
 
   return (
     <>
-      <div className={styles.filter}>
+      <div className={styles.filter} >
         <FormControl>
           <InputLabel id="filter-data">Sắp xếp</InputLabel>
           <Select
@@ -92,7 +97,7 @@ function CategoryPage() {
       </div>
       <div className={styles.container}>
         <div className={styles.title}>
-          <h3>{category}</h3>
+          <h3>{category!=="all"?category:"Toàn bộ sản phẩm"}</h3>
         </div>
         <ul className={styles.productList}>
           {categoryPageState.products &&
