@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   openLogin: false,
   openRegister: false,
+  openChangePassword:false,
+  openRequestResetPassword:false,
   value:null,
 };
 
@@ -17,6 +19,18 @@ export const modalSlice = createSlice({
     closeLoginModal: (state) => {
       state.openLogin = false;
       state.value = null
+    },
+    openChangePassword: (state,action) => {
+      state.openChangePassword = true;
+    },
+    closeChangePassword: (state) => {
+      state.openChangePassword = false;
+    },
+    openRequestResetPassword: (state,action) => {
+      state.openRequestResetPassword = true;
+    },
+    closeRequeopenRequestResetPassword: (state) => {
+      state.openRequestResetPassword = false;
     },
     openRegisterModal: (state,action) => {
       console.log(action.payload)
@@ -37,6 +51,10 @@ export const {
   closeLoginModal,
   openRegisterModal,
   closeRegisterModal,
+  openChangePassword,
+  closeChangePassword,
+  openRequestResetPassword,
+  closeRequeopenRequestResetPassword
 } = modalSlice.actions;
 
 export const selectModal = (state) => state.modal;

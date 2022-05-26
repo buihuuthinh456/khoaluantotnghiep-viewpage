@@ -8,6 +8,7 @@ import Checkout from '../pages/Checkout/Checkout';
 import Successful from '../pages/Successful/Successful';
 import HeaderOnly from '../components/Layout/HeaderOnly'
 import PageNotFound from '../pages/PageNotFound';
+import ResetPassword from '../pages/ResetPassword/ResetPassword';
 
 const publicRoutes = [
   {path: '/', component: Home },
@@ -17,6 +18,7 @@ const publicRoutes = [
   {path: '/search', component: Search},
   {path: '/checkout', component: Checkout, layout: HeaderOnly },
   {path: '/successful', component: Successful, layout: null },
+  {path: '/resetPassword', component: ResetPassword, layout: null },
   {path: '*', component: PageNotFound, layout: null },
 ]
 

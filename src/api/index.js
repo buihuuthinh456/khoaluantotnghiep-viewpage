@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const URL = "https://khoaluantotnghiep-ecommerce.herokuapp.com";
-// const URL = "http://localhost:5000"
+// const URL = "https://khoaluantotnghiep-ecommerce.herokuapp.com";
+const URL = "http://localhost:5000"
 
 
 // Post Data Analysis
@@ -179,7 +179,38 @@ export const imgSlider = (token) => {
   return axios({
     method: 'get',
     url:`${URL}/api/topic-img`,
-    header: { Authorization:token }
+    headers: { Authorization:token }
+  })
+}
+
+// Change password
+
+export const changePasswordApi = (token,payload) => {
+  return axios({
+    method:'put',
+    url:`${URL}/user/password`,
+    headers:{Authorization:token},
+    data:payload
+  })
+}
+// Request Reset Password
+export const requestResetPasswordApi = (token,payload) => {
+  return axios({
+    method:"post",
+    url:`${URL}/user/password`,
+    headers:{Authorization:token},
+    data:payload
+  })
+}
+
+// Confirm Change password
+
+export const confirmChangePasswordApi = (token,payload,query) => {
+  return axios({
+    method:"post",
+    url:`${URL}/user/resetPassword?${query}`,
+    headers:{Authorization:token},
+    data:payload
   })
 }
 

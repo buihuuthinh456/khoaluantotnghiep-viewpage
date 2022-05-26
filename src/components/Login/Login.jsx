@@ -9,6 +9,7 @@ import { selectLogin, handleLoginAsync } from "../../features/login/loginSlice";
 import {
   closeLoginModal,
   openRegisterModal,
+  openRequestResetPassword,
 } from "../../features/modal/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CloseIcon from '@mui/icons-material/Close';
@@ -29,8 +30,14 @@ function Login() {
     e.stopPropagation()
     dispatch(closeLoginModal())
   }
+  const handleOpenRequestResetPassword = (e)=>{
+    e.stopPropagation()
+    dispatch(closeLoginModal())
+    dispatch(openRequestResetPassword())
+  }
 
-  const handleOpenRegister = () => {
+  const handleOpenRegister = (e) => {
+    e.stopPropagation()
     dispatch(closeLoginModal());
     dispatch(openRegisterModal());
   };
@@ -165,19 +172,20 @@ function Login() {
 
             <div className={styles.signUpNav}>
               <div className={styles.forgotPass}>
-                <Link to="" className={styles.forgotPassLink}>
+                <div className={styles.forgotPassLink}
+                  onClick={handleOpenRequestResetPassword}
+                >
                   Quên Mật Khẩu ?
-                </Link>
+                </div>
               </div>
 
               <div className={styles.register}>
-                <Link
-                  to=""
+                <div
                   className={styles.registerLink}
                   onClick={handleOpenRegister}
                 >
                   Chưa có tài khoản ? Đăng kí
-                </Link>
+                </div>
               </div>
             </div>
           </form>

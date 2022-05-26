@@ -38,9 +38,9 @@ function Register() {
     }
 
     const res = await toast.promise(handleRegisterUser(dataPost),{
-        pending: 'Register is handling',
-        success: 'Register successfull 👌',
-        error: 'Register error 🤯'
+        pending: 'Hệ thống đang xử lý',
+        success: 'Đã đăng ký thành công 👌',
+        error: 'Đã xảy ra lỗi, vui lòng thử lại sau 🤯'
       },{
         style:{fontSize:"1.6rem"}
       });

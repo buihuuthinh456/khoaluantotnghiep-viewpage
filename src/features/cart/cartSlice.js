@@ -152,6 +152,9 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    setEmptyCart: (state, action) => {
+      return initialState
+    },
     increaseQuantity: (state, action) => {
       const index = state.cartItem.findIndex(item=>item._id === action.payload._id)
       state.cartItem[index].quantity +=1
@@ -211,7 +214,7 @@ export const cartSlice = createSlice({
   }
 });
 
-export const {increaseQuantity, decreaseQuantity, productTotalMoney} = cartSlice.actions
+export const {increaseQuantity, decreaseQuantity, productTotalMoney,setEmptyCart} = cartSlice.actions
 
 export const selectCart = (state) => state.cart;
 

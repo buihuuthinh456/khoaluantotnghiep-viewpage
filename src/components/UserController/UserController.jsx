@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./userController.module.scss";
 import styled from "styled-components";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import Modal from "../Modal/Modal";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+import ChangePassword from "../ChangePassword/ChangePassword";
+import RequestResetPassword from "../RequestResetPassword/RequestResetPassword";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectModal,
   openLoginModal,
   openRegisterModal,
-  closeLoginModal,
-  closeRegisterModal,
+  openChangePassword
 } from "../../features/modal/modalSlice";
 import { selectLogin, logOut } from "../../features/login/loginSlice";
+import {setEmptyCart} from '../../features/cart/cartSlice'
 import HelpIcon from "@mui/icons-material/Help";
 import LogoutIcon from "@mui/icons-material/Logout";
+
 
 function UserController() {
   const dispatch = useDispatch();
@@ -59,14 +62,28 @@ function UserController() {
         </div>
       ) : (
         <div className={styles.userController}>
-          <div className={styles.register}>
-            <span>Trợ giúp</span>
-            <HelpIconCustom />
+          <div className={styles.userAvatar}>
+              <img src='/images/user-image.jpg' alt='user-ava'></img>
+              <ul className={styles.avatarOptionList}>
+                <li className={styles.avatarOptionItem} onClick={() => {dispatch(logOut());dispatch(setEmptyCart())}}>
+                  <span>Đăng xuất</span>
+                  <LogOutIconCustom />
+                </li>
+                <li className={styles.avatarOptionItem} onClick={() => {dispatch(openChangePassword())}}>
+                  <span>Đổi mật khẩu</span>
+                  <LogOutIconCustom />
+                </li>
+                <li className={styles.avatarOptionItem} onClick={() => console.log("Khác")}>
+                  <span>Lịch sử giao dịch</span>
+                  <LogOutIconCustom />
+                </li>
+                <li className={styles.avatarOptionItem} onClick={() => console.log("Khác")}>
+                  <span>Cài đặt</span>
+                  <LogOutIconCustom />
+                </li>
+              </ul>
           </div>
-          <div className={styles.login} onClick={() => dispatch(logOut())}>
-            <span>Đăng xuất</span>
-            <LogOutIconCustom />
-          </div>
+
         </div>
       )}
 
@@ -78,6 +95,16 @@ function UserController() {
       {modalState.openRegister && (
         <Modal>
           <Register></Register>
+        </Modal>
+      )}
+       {modalState.openChangePassword && (
+        <Modal>
+          <ChangePassword></ChangePassword>
+        </Modal>
+      )}
+      {modalState.openRequestResetPassword && (
+        <Modal>
+          <RequestResetPassword></RequestResetPassword>
         </Modal>
       )}
     </div>
@@ -106,6 +133,6 @@ const HelpIconCustom = styled(HelpIcon)`
 
 const LogOutIconCustom = styled(LogoutIcon)`
   font-size: 2rem;
-  color: white;
+  color: #000;
   margin-left: 4px;
 `;
