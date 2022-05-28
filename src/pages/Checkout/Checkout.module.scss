@@ -9,6 +9,9 @@
   // background-color: white;
   // z-index: 100;
   padding: 50px 100px;
+  @include mobile(){
+    padding: 24px;
+  }
 }
 
 .logo {
@@ -34,6 +37,10 @@
 .mainBody {
   display: flex;
 
+  @include tablet(){
+    flex-direction: column;
+  }
+
   .productInfo {
     flex: 1;
     background-color: #fafafa;
@@ -44,6 +51,7 @@
       font-weight: 400;
       color: $text-color;
       line-height: 1.9rem;
+      text-align: center;
     }
 
     .productList {
@@ -132,6 +140,9 @@
   .productPayment {
     flex: 1;
     margin-left: 80px;
+    @include mobile(){
+      margin-left: 12px;
+    }
 
     .paymentTitle {
       margin: 36px 0;
@@ -139,6 +150,7 @@
       font-weight: 400;
       color: #333;
       line-height: 1.9rem;
+      text-align: center;
     }
 
     :global(.MuiTypography-root) {

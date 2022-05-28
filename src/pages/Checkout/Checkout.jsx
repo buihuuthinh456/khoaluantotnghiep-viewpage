@@ -26,11 +26,20 @@ function Checkout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userCart = useSelector(selectCart).cartItem;
-  const totalMoney = useSelector(selectCart).cartTotalMoney;
   const payURL = useSelector(selectPayment);
   const [selector, setSelector] = useState();
   const [address, setAddress] = useState();
   const [phone, setPhone] = useState();
+  
+  useEffect(()=>{
+    dispatch(productTotalMoney());
+  },[])
+  
+  // const totalMoney = useSelector(selectCart).cartTotalMoney;
+  const totalMoney = userCart.reduce((acc, cur)=>{
+    return acc + cur.totalMoney
+  }, 0)
+
 
   const handleChange = (e) => {
     setSelector(e.target.value);

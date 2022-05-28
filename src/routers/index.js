@@ -9,6 +9,7 @@ import Successful from '../pages/Successful/Successful';
 import HeaderOnly from '../components/Layout/HeaderOnly'
 import PageNotFound from '../pages/PageNotFound';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
+import Profile from '../pages/Profile/Profile';
 
 const publicRoutes = [
   {path: '/', component: Home },
@@ -19,7 +20,9 @@ const publicRoutes = [
   {path: '/checkout', component: Checkout, layout: HeaderOnly },
   {path: '/successful', component: Successful, layout: null },
   {path: '/resetPassword', component: ResetPassword, layout: null },
+  {path:'/profile',component:Profile},
   {path: '*', component: PageNotFound, layout: null },
+  
 ]
 
 export { publicRoutes }

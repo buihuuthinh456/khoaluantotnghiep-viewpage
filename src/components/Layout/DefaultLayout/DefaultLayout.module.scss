@@ -19,7 +19,7 @@
 }
 
 .container {
-    margin-top: 60px;
+    margin-top: 30px;
     padding: 0 100px;
     display: flex;
     @include tablet() {
@@ -35,7 +35,7 @@
 }
 
 .sliderContainer {
-    margin-top: calc($userController-height + $navbar-height + 40px);
+    margin-top: calc($userController-height + $navbar-height + 10px);
     @include mobile() {
         margin-top: 0;
     }

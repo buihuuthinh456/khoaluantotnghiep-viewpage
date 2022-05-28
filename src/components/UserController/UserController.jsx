@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
+import {useNavigate} from 'react-router-dom'
+
 import styles from "./userController.module.scss";
 import styled from "styled-components";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -7,7 +9,7 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import ChangePassword from "../ChangePassword/ChangePassword";
 import RequestResetPassword from "../RequestResetPassword/RequestResetPassword";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectModal,
@@ -17,12 +19,17 @@ import {
 } from "../../features/modal/modalSlice";
 import { selectLogin, logOut } from "../../features/login/loginSlice";
 import {setEmptyCart} from '../../features/cart/cartSlice'
+
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import HelpIcon from "@mui/icons-material/Help";
 import LogoutIcon from "@mui/icons-material/Logout";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 
 
 function UserController() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const modalState = useSelector(selectModal);
   const loginState = useSelector(selectLogin);
   const [userData, setUserData] = useState([]);
@@ -71,15 +78,11 @@ function UserController() {
                 </li>
                 <li className={styles.avatarOptionItem} onClick={() => {dispatch(openChangePassword())}}>
                   <span>Đổi mật khẩu</span>
-                  <LogOutIconCustom />
+                  <ChangeCircleIcon />
                 </li>
-                <li className={styles.avatarOptionItem} onClick={() => console.log("Khác")}>
-                  <span>Lịch sử giao dịch</span>
-                  <LogOutIconCustom />
-                </li>
-                <li className={styles.avatarOptionItem} onClick={() => console.log("Khác")}>
-                  <span>Cài đặt</span>
-                  <LogOutIconCustom />
+                <li className={styles.avatarOptionItem} onClick={() => navigate('/profile')}>
+                  <span>Xem thêm</span>
+                  <SettingsApplicationsIcon />
                 </li>
               </ul>
           </div>

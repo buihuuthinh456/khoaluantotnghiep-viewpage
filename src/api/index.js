@@ -214,3 +214,10 @@ export const confirmChangePasswordApi = (token,payload,query) => {
   })
 }
 
+//get history payment 
+export const historyPayment = () => axios({
+  method:"get",
+  url: `${URL}/api/payment/history`,
+  headers: {Authorization: localStorage.getItem('accessToken')},
+})
+

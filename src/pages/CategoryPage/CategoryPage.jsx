@@ -112,6 +112,7 @@ function CategoryPage() {
               />
             ))}
         </ul>
+        {categoryPageState.products.length===0?<div style={{textAlign:"center"}}>Không có sản phẩm nào</div>:""}
 
         <div className={styles.pagination}>
           <Pagination
