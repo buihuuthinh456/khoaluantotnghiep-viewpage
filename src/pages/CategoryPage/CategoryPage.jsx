@@ -5,7 +5,7 @@ import {
   selectCategoryPage,
   categoryPageAsync,
   paginationAsync,
-  sortPriceAsync
+  sortPriceAsync,
 } from "../../features/categoryPage/categoryPageSlice";
 
 import { Link, useParams, useSearchParams } from "react-router-dom";
@@ -32,42 +32,42 @@ function CategoryPage() {
   const [query, setQuery] = useState({
     sort: null,
     page: page,
-    "category[regex]": category
+    "category[regex]": category,
   });
-  
- 
+
   useEffect(() => {
     window.scrollTo(0, 200);
     setSearchParam(query);
   }, []);
 
   useEffect(() => {
-      dispatch(categoryPageAsync(category));
+    dispatch(categoryPageAsync(category));
   }, [category]);
-
 
   const handleChangeFilter = (event) => {
     setFilter(event.target.value);
-    setQuery(state => {
-      const param = {...state,"category[regex]": category, sort: event.target.value}
-      setSearchParam(param)
-      dispatch(sortPriceAsync(param))
-      return param
-    })
+    setQuery((state) => {
+      const param = {
+        ...state,
+        "category[regex]": category,
+        sort: event.target.value,
+      };
+      setSearchParam(param);
+      dispatch(sortPriceAsync(param));
+      return param;
+    });
     window.scrollTo(0, 200);
-
   };
 
   const handleChangePage = (event, value) => {
-    setPage(value)
-    setQuery(state => {
-      const param = {...state, page: value, "category[regex]": category}
-      setSearchParam(param)
-      dispatch(paginationAsync(param))
-      return param
-    })
+    setPage(value);
+    setQuery((state) => {
+      const param = { ...state, page: value, "category[regex]": category };
+      setSearchParam(param);
+      dispatch(paginationAsync(param));
+      return param;
+    });
     window.scrollTo(0, 200);
-
   };
 
   if (categoryPageState.isLoading)
@@ -79,7 +79,7 @@ function CategoryPage() {
 
   return (
     <>
-      <div className={styles.filter} >
+      <div className={styles.filter}>
         <FormControl>
           <InputLabel id="filter-data">Sắp xếp</InputLabel>
           <Select
@@ -97,10 +97,13 @@ function CategoryPage() {
       </div>
       <div className={styles.container}>
         <div className={styles.title}>
-          <h3>{category!=="all"?category:"Toàn bộ sản phẩm"}</h3>
+          <h3>{category !== "all" ? category : "Toàn bộ sản phẩm"}</h3>
         </div>
         <ul className={styles.productList}>
-          {categoryPageState.products &&
+          {categoryPageState.products === null ||
+          categoryPageState.products.length === 0 ? (
+            <div style={{ textAlign: "center" }}>Không có sản phẩm nào</div>
+          ) : (
             categoryPageState.products.map((item) => (
               <ProductCard
                 id={item._id}
@@ -108,11 +111,12 @@ function CategoryPage() {
                 name={item.name}
                 price={item.price}
                 link={`/detail/${item._id}`}
-                imgKey = {item.images[0].public_id}
+                imgKey={item.images[0].public_id}
               />
-            ))}
+            ))
+          )}
         </ul>
-        {categoryPageState.products.length===0?<div style={{textAlign:"center"}}>Không có sản phẩm nào</div>:""}
+        {/* {categoryPageState.products.length===0?<div style={{textAlign:"center"}}>Không có sản phẩm nào</div>:""} */}
 
         <div className={styles.pagination}>
           <Pagination

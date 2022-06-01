@@ -198,6 +198,24 @@
     }
 }
 
+// moreInfo
+
+.moreInfoBody {
+    .moreInfoHeader {
+        h5 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            font-size: 1.4rem;
+        }
+    }
+
+    ul {
+        margin-top: 12px;
+    }
+}
+
 // rating
 .rating {
     h2 {

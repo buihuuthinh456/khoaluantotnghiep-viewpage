@@ -5,60 +5,60 @@ import * as Yup from "yup";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
-import {requestResetPasswordApi} from '../../api'
-import {
-  closeRequeopenRequestResetPassword,
-} from "../../features/modal/modalSlice";
+import { requestResetPasswordApi } from "../../api";
+import { closeRequeopenRequestResetPassword } from "../../features/modal/modalSlice";
 import { useDispatch } from "react-redux";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
 
-
-
 function RequestResetPassword() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-
-
-    const handleSubmit = async (values,func) => {
-        console.log(values)
-        const payload = {
-            email:values.email
+  const handleSubmit = async (values, func) => {
+    console.log(values);
+    const payload = {
+      email: values.email,
+    };
+    const token = localStorage.getItem("accessToken");
+    console.log(token);
+    try {
+      await toast.promise(
+        requestResetPasswordApi(token, payload),
+        {
+          pending: "Hệ thống đang xử lý",
+          success: "Gửi yêu cầu thành công 👌",
+        },
+        {
+          style: { fontSize: "1.6rem" },
         }
-        const token = localStorage.getItem("accessToken")
-        console.log(token)
-        try {
-            await toast.promise(requestResetPasswordApi(token,payload),{
-                pending:"Hệ thống đang xử lý",
-                success: 'Gửi yêu cầu thành công 👌',
-            },
-            {
-                style:{fontSize:"1.6rem"}
-            })
-            toast.success("Hãy kiểm tra email của bạn", {
-              position: toast.POSITION.TOP_RIGHT,
-              style: { fontSize: "1.6rem" },
-          });
-            dispatch(closeRequeopenRequestResetPassword())
-        } catch (error) {
-            toast.error(error.response.data.msg, {
-                position: toast.POSITION.TOP_RIGHT,
-                style: { fontSize: "1.6rem" },
-            });
-        }
-        func()
+      );
+      toast.success("Hãy kiểm tra email của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+        style: { fontSize: "1.6rem" },
+      });
+      dispatch(closeRequeopenRequestResetPassword());
+    } catch (error) {
+      toast.error(error.response.data.msg, {
+        position: toast.POSITION.TOP_RIGHT,
+        style: { fontSize: "1.6rem" },
+      });
     }
+    func();
+  };
 
-    const handleCloseRequestResetPassword = (e)=>{
-        e.stopPropagation()
-        e.preventDefault()
-        dispatch(closeRequeopenRequestResetPassword())
-    }
+  const handleCloseRequestResetPassword = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(closeRequeopenRequestResetPassword());
+  };
   return (
     <div className={styles.container} onClick={(e) => e.stopPropagation()}>
       <h1 className={styles.header}>Quên mật khẩu</h1>
 
-      <div className={styles.close} onClick={(e) => handleCloseRequestResetPassword(e)}>
+      <div
+        className={styles.close}
+        onClick={(e) => handleCloseRequestResetPassword(e)}
+      >
         <CloseIcon />
       </div>
 
@@ -72,7 +72,7 @@ function RequestResetPassword() {
             .required("Bạn phải nhập email"),
         })}
         onSubmit={(values, { resetForm }) => {
-          handleSubmit(values,resetForm)
+          handleSubmit(values, resetForm);
         }}
       >
         {(formik) => (
@@ -134,7 +134,7 @@ function RequestResetPassword() {
         )}
       </Formik>
     </div>
-  )
+  );
 }
 
-export default RequestResetPassword
+export default RequestResetPassword;

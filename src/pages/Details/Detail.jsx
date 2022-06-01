@@ -29,6 +29,7 @@ function Detail() {
   const [rating, setRating] = useState();
   const [table, setTable] = useState(null);
   const [productRate, setProductRate] = useState(0);
+  const [moreInfo, setMoreInfo] = useState(null)
 
   const dispatch = useDispatch();
 
@@ -38,6 +39,7 @@ function Detail() {
   const voteList = useSelector(selectDetailProduct).voting;
   // const msg = useSelector(selectVoting).msg
 
+  
   // When add product
   const handleAddProduct = () => {
     const totalMoney = detailProduct.price * amount;
@@ -54,6 +56,10 @@ function Detail() {
   useEffect(() => {
     dispatch(fetchDetailProduct(productID));
   }, [productID]);
+
+  useEffect(()=>{
+    if (!isLoading) setMoreInfo(detailProduct.moreInfo)
+  }, [isLoading])
 
   // scroll top
   useEffect(() => {
@@ -189,6 +195,35 @@ function Detail() {
       )}
 
       {/* {table && table} */}
+      {console.log("moreInfo", moreInfo)}
+      {moreInfo === null || moreInfo.length ===0 ? "" : (
+        <>
+          <div className={styles.moreInfoContent}>
+            <h4>Thông tin thêm về sản phẩm</h4>
+
+            {moreInfo.map((item, index) => (
+              <div className={styles.moreInfoBody} key={index}>
+                <div className={styles.moreInfoHeader}>
+                  <h5>Mô tả</h5>
+                  <p>{item.moreDesc}</p>
+                </div>
+                {item.table && (
+                  <ul>
+                    <h5>Thông số kỹ thuật</h5>
+                    {item.table &&
+                      item.table
+                        .split("_")
+                        .map((item, index) => <li key={index}>{item}</li>)}
+                  </ul>
+                )}
+                <div className={styles.imgWrapper}>
+                  <img src={item.url_img[0].url} alt="Product" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       <div className={styles.rating}>
         <h2>Đánh giá sản phẩm</h2>
