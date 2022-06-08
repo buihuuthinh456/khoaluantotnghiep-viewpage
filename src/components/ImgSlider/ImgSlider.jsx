@@ -11,6 +11,7 @@ import Button from '../Button/Button';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Fade } from 'react-awesome-reveal';
+import { ContactSupport } from '@mui/icons-material'
 
 const SliderDots = ({children}) => {
   return (
@@ -30,8 +31,9 @@ function ImgSlider() {
   const userId = useSelector(selectLogin)
 
   useEffect(()=>{
-    dispatch(getTopicImgAsync(userId.info._id))
-  }, [imgSlider,userId.info._id])
+    console.log("222");
+    dispatch(getTopicImgAsync(userId?.info?._id))
+  }, [])
 
   const settings = {
     dots: true,
@@ -58,14 +60,22 @@ function ImgSlider() {
       duration={500}
     >
       <div className={styles.container}>
+        {console.log("imgslider", imgSlider)}
         <div className={styles.sliderContainer}>
           <Slider {...settings} ref={slider}>
             <div className={styles.item}>
                 <img src="//bizweb.dktcdn.net/100/190/540/themes/510789/assets/slide-img3.jpg?1649728473586" alt="slider" />
             </div>
-            <div className={styles.item}>
+            {/* <div className={styles.item}>
                 <img src="https://img.freepik.com/free-vector/e-commerce-icon-robotic-hand-internet-shopping-online-purchase-add-cart_127544-586.jpg?w=2000" alt="slider" />
-            </div>
+            </div> */}
+            {imgSlider&&imgSlider.length!==0&&imgSlider.map((item,index)=>{
+              return (
+                <div className={styles.item} key={item?.img?.public_id||index}>
+                  <img src={item?.img?.url||""} alt="slider" />
+              </div>
+              )
+            })}
           </Slider>
             <Button
               borderRadius = '50%'

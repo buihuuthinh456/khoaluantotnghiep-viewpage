@@ -58,7 +58,7 @@ function Detail() {
   }, [productID]);
 
   useEffect(()=>{
-    if (!isLoading) setMoreInfo(detailProduct.moreInfo)
+    if (!isLoading) setMoreInfo(detailProduct?.moreInfo)
   }, [isLoading])
 
   // scroll top
@@ -126,7 +126,7 @@ function Detail() {
         <meta name="description" content={detailProduct?detailProduct.name:"Detail Product Page"} />
       </Helmet>
       <div className={styles.back}>
-        <Link to={`/`}>Back</Link>
+        <Link to={`/`}>Trở về</Link>
       </div>
       {detailProduct && (
         <div className={styles.container} key={detailProduct._id}>
@@ -196,12 +196,12 @@ function Detail() {
 
       {/* {table && table} */}
       {console.log("moreInfo", moreInfo)}
-      {moreInfo === null || moreInfo.length ===0 ? "" : (
+      {detailProduct?.moreInfo.length!==0 && (
         <>
           <div className={styles.moreInfoContent}>
             <h4>Thông tin thêm về sản phẩm</h4>
 
-            {moreInfo.map((item, index) => (
+            {detailProduct?.moreInfo.map((item, index) => (
               <div className={styles.moreInfoBody} key={index}>
                 <div className={styles.moreInfoHeader}>
                   <h5>Mô tả</h5>

@@ -7,7 +7,7 @@ const initialState = {
   hotProduct: null,
   newProduct: null,
   categories: null,
-  imgSLider: null,
+  imgSlider: null,
 };
 
 export const getHomeAsync = createAsyncThunk("home/getHomeAsync", async () => {
@@ -19,11 +19,11 @@ export const getTopicImgAsync = createAsyncThunk(
   "home/getTopicImgAsync",
   async (userId) => {
     try {
-      if (localStorage.getItem("accessToken")) {
-        const token = localStorage.getItem("accessToken");
-        const response = await Promise.all([imgSlider(token),postDataAnalysis(userId)])
-        return response;
-      }
+        const token = localStorage.getItem("accessToken")||"";
+        const response = await Promise.all([imgSlider(token), postDataAnalysis(userId)])
+        // const response = await imgSlider(token)
+        console.log("response",response)
+        return response[0];
     } catch (error) {
       console.log(error.response);
     }
@@ -56,6 +56,7 @@ export const homeSlice = createSlice({
       .addCase(getTopicImgAsync.fulfilled, (state, action) => {
         state.isLoading = false;
         console.log("getTopicImgAsync fulfilled", action.payload);
+        state.imgSlider = action.payload.data
       })
       .addCase(getTopicImgAsync.rejected, (state, action) => {
         state.isLoading = false;

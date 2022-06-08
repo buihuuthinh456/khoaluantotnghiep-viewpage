@@ -28,12 +28,14 @@ import Badge from "@mui/material/Badge";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import Voice from "../Voice";
 import Modal from "@mui/material/Modal";
+import { toast } from "react-toastify";
 
 import CurrencyFormat from "../../functionJS";
 function Navbar() {
   // redux
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loginState = useSelector(selectLogin);
   const userPersonalCart = useSelector(selectLogin).cart;
   const searchState = useSelector(selectSearch);
   const userCart = useSelector(selectCart);
@@ -121,7 +123,16 @@ function Navbar() {
         </Button>
       </div>
       <div className={styles.right}>
-        <div className={styles.cart} onClick={() => navigate("/cart")}>
+        <div className={styles.cart} onClick={() =>{ 
+            if (loginState.isLogin) {
+              navigate("/cart")
+            } else {
+              toast.error("Vui lòng đăng nhập để xem giỏ hàng", {
+                position: toast.POSITION.TOP_RIGHT,
+                style: { fontSize: "1.6rem" },
+              });
+            }
+          }}>
           <Badge badgeContent={cartAmount} color="primary">
             <ShoppingCartRoundedIcon fontSize="3rem" />
           </Badge>

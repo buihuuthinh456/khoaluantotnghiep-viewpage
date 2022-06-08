@@ -47,7 +47,7 @@ function Profile() {
   }, []);
 
   const handleSwitchPage = () => {
-    if (loginState.isLogin && loginState.isAdmin) {
+    if (loginState.isLogin) {
       setMountForm((state) => !state);
       setDataRow(null);
     } else {
