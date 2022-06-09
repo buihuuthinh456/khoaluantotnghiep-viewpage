@@ -214,6 +214,17 @@
     ul {
         margin-top: 12px;
     }
+
+    .imgWrapper {
+        width: 100%;
+        height: auto;
+
+        img {
+            width: 100%;
+            height: 60vh;
+            object-fit: contain;
+        }
+    }
 }
 
 // rating
